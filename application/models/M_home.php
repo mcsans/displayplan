@@ -17,10 +17,17 @@ class m_home extends CI_Model
         // QUERY
 		$this->db->select('*');
 		$this->db->from('dyelots');
+        
 		$this->db->where('QueueTime >', '2023-08-23 00:00:00');
-		$this->db->where('State !=', 40);
-		$this->db->where('StartTime', null);
-		$this->db->where('QueueTime !=', null);
+		$this->db->where('Machine !=', 'TEMP');
+        $this->db->group_start();
+		$this->db->where('State', 20);
+		$this->db->or_where('State', 25);
+        $this->db->group_end();
+
+		// $this->db->where('State !=', 40);
+		// $this->db->where('StartTime', null);
+		// $this->db->where('QueueTime !=', null);
         if($perMesin != 'ALL') {
             $this->db->where('Machine', $perMesin);
         }
