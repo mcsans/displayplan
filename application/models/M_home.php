@@ -20,10 +20,7 @@ class m_home extends CI_Model
         
 		$this->db->where('QueueTime >', '2023-08-23 00:00:00');
 		$this->db->where('Machine !=', 'TEMP');
-        $this->db->group_start();
-		$this->db->where('State', 20);
-		$this->db->or_where('State', 25);
-        $this->db->group_end();
+		$this->db->where('State', 25);
 
 		// $this->db->where('State !=', 40);
 		// $this->db->where('StartTime', null);
