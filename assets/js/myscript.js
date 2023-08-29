@@ -3,7 +3,9 @@ const baseurl = $('meta[name="baseurl"]').attr("content");
 const segment = $('meta[name="segment"]').attr("content");
 
 $(document).ready(function() {
-  setInterval(readData(1), 1000);
+  setInterval(function() {
+    readData(1);
+  }, 2000);
 });
 
 
@@ -34,6 +36,8 @@ function readData(page) { // load data (tbody) pagination global
   const perPage  = $('#perPage').val();
   const perMesin = $('#perMesin').val();
   const keyword  = btoa($('#keyword').val());
+
+  console.log('hai');
 
   if(keyword == "") {
     $.get(`${baseurl}${segment}/readData/`, {page, perPage, perMesin}, function(data) {
