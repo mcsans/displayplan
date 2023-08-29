@@ -21,8 +21,8 @@
           $now   = strtotime(date('Y-m-d 00:00:00'));
           $late  = number_format((($now - $queue) / 86400), 0);
           
-          $day1  = ($late == 1 && $data['State'] == 10) ? 'text-warning' : '';
-          $day2  = ($late >= 2 && $data['State'] == 10) ? 'text-danger' : '';
+          $day1  = ($late == 1) ? 'text-warning' : '';
+          $day2  = ($late >= 2) ? 'text-danger' : '';
         ?>
       <tr>
         <td align="center" class="<?= $day1 ?> <?= $day2 ?>" width="1%"><?= ++$i; ?></td>
