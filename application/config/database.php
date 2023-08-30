@@ -94,3 +94,25 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+
+$db['second_db'] = array(
+	'dsn'   => '',
+	'hostname' => '192.168.2.101\SQLEXPRESS',
+	'username' => 'sa',
+	'password' => '1234',
+	'database' => 'WF2100',
+	'dbdriver' => 'sqlsrv',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => (ENVIRONMENT !== 'production'),
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'Chinese_Taiwan_Stroke_CI_AS',
+	'swap_pre' => '',
+	'encrypt' => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE,
+);

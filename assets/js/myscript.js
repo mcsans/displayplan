@@ -5,6 +5,7 @@ const segment = $('meta[name="segment"]').attr("content");
 $(document).ready(function() {
   setInterval(function() {
     readData(1);
+    updateState();
   }, 2000);
 });
 
@@ -37,8 +38,6 @@ function readData(page) { // load data (tbody) pagination global
   const perMesin = $('#perMesin').val();
   const keyword  = btoa($('#keyword').val());
 
-  console.log('hai');
-
   if(keyword == "") {
     $.get(`${baseurl}${segment}/readData/`, {page, perPage, perMesin}, function(data) {
       $('#mytable').html(data);
@@ -48,5 +47,11 @@ function readData(page) { // load data (tbody) pagination global
       $('#mytable').html(data);
     }); 
   }
+}
+
+function updateState() {
+  $.get(`${baseurl}${segment}/updateState/`, {}, function(data) {
+    // $('#mytable').html(data);
+  }); 
 }
 // END COMPONENTS PAGINATION GLOBAL
