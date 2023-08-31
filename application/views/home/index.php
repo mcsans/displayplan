@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="today" content="<?= date('Y-m-d'); ?>">
   <meta name="baseurl" content="<?= base_url(); ?>">
   <meta name="segment" content="<?= $this->uri->segment(1) . '/' . $this->uri->segment(2); ?>">
   <title>Minimalis Display Airport</title>

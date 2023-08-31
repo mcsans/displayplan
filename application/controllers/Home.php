@@ -25,20 +25,22 @@ class Home extends CI_Controller
 	}
 
 	public function updateState() {
-		$this->db->select('dyelot');
+		$this->db->select('dyelot, Text11');
 		$this->db->from('dyelots');
 		$this->db->where('State =', 25);
-		$query = $this->db->get()->result();
-
+		$wanfeng = $this->db->get()->result();
+		
 		// $today = date('Y-m-d H:i:s');
 		// $kemarin = date('Y-m-d 00:00:00', strtotime('0 days ago'));
-
-		foreach($query as $orgatex) {
-			$query = $this->second_db->query("SELECT *, 'WO/' + SUBSTRING(唯一編號, 3, 4) + '/' + SUBSTRING(唯一編號, 7, 4) AS ID_WO FROM dbo.領料檔 WHERE  'WO/' + SUBSTRING(唯一編號, 3, 4) + '/' + SUBSTRING(唯一編號, 7, 4) = '$orgatex->dyelot'");
-    	$results = $query->num_rows();
+		// $test = $this->second_db->query("SELECT TOP 100 * FROM dbo.領料檔 ORDER BY 開始時間 DESC")->result();
+		// var_dump($test); die();
+		
+		foreach($wanfeng as $data) {
+			$idwokp  = str_replace('/', '', $wanfeng[1]->dyelot) . 'KP' . $wanfeng[1]->Text11 . 'X';
+			$results = $this->second_db->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 = '$idwokp'")->num_rows();
 
 			if($results > 0) {
-				$this->db->where('Dyelot', $orgatex->dyelot);
+				$this->db->where('Dyelot', $data->dyelot);
         $this->db->update('dyelots', ['State' => 27]);
 			}
 		}
