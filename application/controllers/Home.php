@@ -42,6 +42,9 @@ class Home extends CI_Controller
 			if($results > 0) {
 				$this->db->where('Dyelot', $data->dyelot);
         $this->db->update('dyelots', ['State' => 27]);
+
+				$this->output->set_content_type('application/json');
+        echo json_encode(['UpdateState' => 'success!']);
 			}
 		}
 	}

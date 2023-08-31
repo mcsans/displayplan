@@ -29,9 +29,11 @@ $(document).ready(function() {
 
 function updateState() {
   $.get(`${baseurl}${segment}/updateState/`, {}, function(data) {
-    const befCookie = getCookie(`1-count-${today}`);
-    setCookie(`1-last-${today}`, dateNow(), 1);
-    setCookie(`1-count-${today}`, (befCookie !== null ? parseInt(befCookie)+1 : 1), 1);
+    if (data.UpdateState != null) {
+      const befCookie = getCookie(`1-count-${today}`);
+      setCookie(`1-last-${today}`, dateNow(), 1);
+      setCookie(`1-count-${today}`, (befCookie !== null ? parseInt(befCookie)+1 : 1), 1);
+    }
   }); 
 }
 
