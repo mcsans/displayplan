@@ -28,15 +28,15 @@ class Home extends CI_Controller
 		$this->db->select('dyelot, Text11');
 		$this->db->from('dyelots');
 		$this->db->where('State =', 25);
-		$wanfeng = $this->db->get()->result();
+		$orgatex = $this->db->get()->result();
 		
 		// $today = date('Y-m-d H:i:s');
 		// $kemarin = date('Y-m-d 00:00:00', strtotime('0 days ago'));
 		// $test = $this->second_db->query("SELECT TOP 100 * FROM dbo.領料檔 ORDER BY 開始時間 DESC")->result();
 		// var_dump($test); die();
 		
-		foreach($wanfeng as $data) {
-			$idwokp  = str_replace('/', '', $wanfeng[1]->dyelot) . 'KP' . $wanfeng[1]->Text11 . 'X';
+		foreach($orgatex as $data) {
+			$idwokp  = str_replace('/', '', $data->dyelot) . 'KP' . $data->Text11 . 'X';
 			$results = $this->second_db->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 = '$idwokp'")->num_rows();
 
 			if($results > 0) {

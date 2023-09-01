@@ -15,6 +15,7 @@ $(document).ready(function() {
       console.log('task!');
     }, 1000);
   }
+  
   if (segment.toLowerCase() == 'home/') {
     readData(1);
     updateState();
