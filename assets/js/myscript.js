@@ -5,11 +5,11 @@ const segment = $('meta[name="segment"]').attr("content");
 $(document).ready(function() {
   if (segment.toLowerCase() == 'task/') {
     setInterval(function() {
-      $('#1-last').html(getCookie(`1-last-${dateOnly}`));
-      $('#1-count').html(getCookie(`1-count-${dateOnly}`));
+      $('#1-last').html(getCookie(`1-last-${dateOnly()}`));
+      $('#1-count').html(getCookie(`1-count-${dateOnly()}`));
 
-      $('#2-last').html(getCookie(`1-last-${dateOnly}`));
-      $('#2-count').html(getCookie(`1-count-${dateOnly}`));
+      $('#2-last').html(getCookie(`1-last-${dateOnly()}`));
+      $('#2-count').html(getCookie(`1-count-${dateOnly()}`));
       
       console.log('task!');
     }, 1000);
@@ -30,9 +30,9 @@ $(document).ready(function() {
 function updateState() {
   $.get(`${baseurl}${segment}/updateState/`, {}, function(data) {
     if (data.UpdateState != null) {
-      const befCookie = getCookie(`1-count-${dateOnly}`);
-      setCookie(`1-last-${dateOnly}`, dateTime(), 1);
-      setCookie(`1-count-${dateOnly}`, (befCookie !== null ? parseInt(befCookie)+1 : 1), 1);
+      const befCookie = getCookie(`1-count-${dateOnly()}`);
+      setCookie(`1-last-${dateOnly()}`, dateTime(), 1);
+      setCookie(`1-count-${dateOnly()}`, (befCookie !== null ? parseInt(befCookie)+1 : 1), 1);
     }
   }); 
 }
