@@ -1,16 +1,15 @@
 // var debounceTimer;
-const today   = $('meta[name="today"]').attr("content");
 const baseurl = $('meta[name="baseurl"]').attr("content");
 const segment = $('meta[name="segment"]').attr("content");
 
 $(document).ready(function() {
   if (segment.toLowerCase() == 'task/') {
     setInterval(function() {
-      $('#1-last').html(getCookie(`1-last-${today}`));
-      $('#1-count').html(getCookie(`1-count-${today}`));
+      $('#1-last').html(getCookie(`1-last-${dateOnly}`));
+      $('#1-count').html(getCookie(`1-count-${dateOnly}`));
 
-      $('#2-last').html(getCookie(`1-last-${today}`));
-      $('#2-count').html(getCookie(`1-count-${today}`));
+      $('#2-last').html(getCookie(`1-last-${dateOnly}`));
+      $('#2-count').html(getCookie(`1-count-${dateOnly}`));
       
       console.log('task!');
     }, 1000);
@@ -31,9 +30,9 @@ $(document).ready(function() {
 function updateState() {
   $.get(`${baseurl}${segment}/updateState/`, {}, function(data) {
     if (data.UpdateState != null) {
-      const befCookie = getCookie(`1-count-${today}`);
-      setCookie(`1-last-${today}`, dateNow(), 1);
-      setCookie(`1-count-${today}`, (befCookie !== null ? parseInt(befCookie)+1 : 1), 1);
+      const befCookie = getCookie(`1-count-${dateOnly}`);
+      setCookie(`1-last-${dateOnly}`, dateTime(), 1);
+      setCookie(`1-count-${dateOnly}`, (befCookie !== null ? parseInt(befCookie)+1 : 1), 1);
     }
   }); 
 }
@@ -104,7 +103,7 @@ function getCookie(name) { // Fungsi untuk mengambil nilai cookie
 
 
 // DATE
-function dateNow() {
+function dateTime() {
   var currentDate = new Date();
 
   var year = currentDate.getFullYear();
@@ -115,6 +114,18 @@ function dateNow() {
   var second = String(currentDate.getSeconds()).padStart(2, '0');
 
   var formattedDate = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+
+  return formattedDate;
+}
+
+function dateOnly() {
+  var currentDate = new Date();
+
+  var year = currentDate.getFullYear();
+  var month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Ditambah 1 karena bulan dimulai dari 0
+  var day = String(currentDate.getDate()).padStart(2, '0');
+
+  var formattedDate = year + '-' + month + '-' + day;
 
   return formattedDate;
 }
