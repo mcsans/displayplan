@@ -8,7 +8,8 @@ class Home extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->database();
-		$this->second_db = $this->load->database('second_db', TRUE);
+		$this->timbangan_ds = $this->load->database('timbangan_ds', TRUE);
+		$this->timbangan_ax = $this->load->database('timbangan_ax', TRUE);
 
 		$this->load->model('m_home');
 	}
@@ -32,14 +33,17 @@ class Home extends CI_Controller
 		
 		// $today = date('Y-m-d H:i:s');
 		// $kemarin = date('Y-m-d 00:00:00', strtotime('0 days ago'));
-		// $test = $this->second_db->query("SELECT TOP 100 * FROM dbo.領料檔 ORDER BY 開始時間 DESC")->result();
+		// $test = $this->timbangan_ax->query("SELECT TOP 100 * FROM dbo.領料檔 ORDER BY 開始時間 DESC")->result();
 		// var_dump($test); die();
 		
 		foreach($orgatex as $data) {
-			$idwokp  = str_replace('/', '', $data->dyelot) . 'KP' . $data->Text11 . 'X';
-			$results = $this->second_db->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 = '$idwokp'")->num_rows();
+			$ds = str_replace('/', '', $data->Dyelot) . 'KP' . $data->Text11 . 'D';
+			$dsResults = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 = '$ds'")->num_rows();
+			
+			$ax = str_replace('/', '', $data->Dyelot) . 'KP' . $data->Text11 . 'X';
+			$axResults = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 = '$ax'")->num_rows();
 
-			if($results > 0) {
+			if($dsResults > 0 && $axResults > 0) {
 				$this->db->where('Dyelot', $data->dyelot);
         $this->db->update('dyelots', ['State' => 27]);
 

@@ -11,6 +11,7 @@
         <th class="bg-primary text-light text-uppercase">KG</th>
         <th class="bg-primary text-light text-uppercase">Antrian Planning</th>
         <th class="bg-primary text-light text-uppercase">Status</th>
+        <th class="bg-primary text-light text-uppercase">Selesai</th>
       </tr>
     </thead>
     <tbody>
@@ -43,6 +44,10 @@
           <?= $data['State'] == 35 ? 'Mesin mulai' : ''; ?>
           <?= $data['State'] == 40 ? 'Selesai' : ''; ?>
         </td> 
+				<td align="center" width="1%">
+					<button type="button" class="btn btn-sm <?= ($data['Text20'] == 1) ? 'btn-success' : 'btn-secondary' ?> py-0">DS</button>
+					<button type="button" class="btn btn-sm <?= ($data['Text20'] == 2) ? 'btn-success' : 'btn-secondary' ?> py-0">AX</button>
+				</td>
       </tr>
       <?php endforeach ?>
     </tbody>

@@ -7,6 +7,8 @@ class m_home extends CI_Model
     {
         parent::__construct();
         $this->load->database();
+		$this->timbangan_ds = $this->load->database('timbangan_ds', TRUE);
+		$this->timbangan_ax = $this->load->database('timbangan_ax', TRUE);
     }
 
     public function pagination($keyword)
@@ -60,7 +62,26 @@ class m_home extends CI_Model
 
         $data['paginator'] = $query->get('', $data['perPage'], $data['from'])->result_array();
 
-        // var_dump($data['paginator'][0]); die();
+		// update banner
+		$i = 0;
+		foreach($data['paginator'] as $orgatex) {
+			$ds = str_replace('/', '', $orgatex['Dyelot']) . 'KP' . $orgatex['Text11'] . 'D';
+			$dsResults = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 = '$ds'")->num_rows();
+			
+			$ax = str_replace('/', '', $orgatex['Dyelot']) . 'KP' . $orgatex['Text11'] . 'X';
+			$axResults = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 = '$ax'")->num_rows();
+
+			if($dsResults > 0) {
+				$data['paginator'][0]['Text20'] = 1;
+			}
+			
+			if($axResults > 0) {
+				$data['paginator'][0]['Text20'] = 2;
+			}
+
+			$i++;
+		}
+
         return $data;
     }
 }
