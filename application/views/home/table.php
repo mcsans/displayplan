@@ -45,8 +45,8 @@
           <?= $data['State'] == 40 ? 'Selesai' : ''; ?>
         </td> 
 				<td align="center" width="1%">
-					<button type="button" class="btn btn-sm <?= ($data['Text20'] == 1) ? 'btn-success' : 'btn-secondary' ?> py-0">DS</button>
-					<button type="button" class="btn btn-sm <?= ($data['Text20'] == 2) ? 'btn-success' : 'btn-secondary' ?> py-0">AX</button>
+					<button type="button" class="btn btn-sm <?= ($data['Text20'] == 1) ? 'btn-success-light' : 'btn-secondary' ?> py-0">DS</button>
+					<button type="button" class="btn btn-sm <?= ($data['Text20'] == 2) ? 'btn-success-light' : 'btn-secondary' ?> py-0">AX</button>
 				</td>
       </tr>
       <?php endforeach ?>

@@ -7,7 +7,7 @@
   <meta name="today" content="<?= date('Y-m-d'); ?>">
   <meta name="baseurl" content="<?= base_url(); ?>">
   <meta name="segment" content="<?= $this->uri->segment(1) . '/' . $this->uri->segment(2); ?>">
-  <title>Minimalis Display Airport</title>
+  <title>Planing Display</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -31,18 +31,18 @@
             <tbody>
               <tr align="center">
                 <td width="1%">1</td>
-                <td align="left">Update State From DS Wanfeng</td>
+                <td align="left">Update State From DS & AX Wanfeng</td>
                 <td id="1-last"><?= date('Y-m-d H:i:s') ?></td>
                 <td id="1-count">1</td>
                 <td width="1%"><button type="button" class="btn btn-sm btn-warning text-white" onClick="updateState()">RUN</button></td>
               </tr>
-              <tr align="center">
+              <!-- <tr align="center">
                 <td width="1%">2</td>
                 <td align="left">Update State From AX Wanfeng</td>
                 <td id="2-last"><?= date('Y-m-d H:i:s') ?></td>
                 <td id="2-count">1</td>
                 <td width="1%"><button type="button" class="btn btn-sm btn-warning text-white" onClick="updateState()">RUN</button></td>
-              </tr>
+              </tr> -->
             </tbody>
           </table>
         </div>

@@ -7,9 +7,15 @@
   <meta name="today" content="<?= date('Y-m-d'); ?>">
   <meta name="baseurl" content="<?= base_url(); ?>">
   <meta name="segment" content="<?= $this->uri->segment(1) . '/' . $this->uri->segment(2); ?>">
-  <title>Minimalis Display Airport</title>
+  <title>Planing Display</title>
   
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<style>
+		.btn-success-light {
+			background-color: greenyellow;
+		}
+	</style>
 </head>
 
 <body class="bg-dark">
