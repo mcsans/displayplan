@@ -72,11 +72,11 @@ class m_home extends CI_Model
 			$axResults = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 = '$ax'")->num_rows();
 
 			if($dsResults > 0) {
-				$data['paginator'][0]['Text20'] = 1;
+				$data['paginator'][$i]['Text20'] = 1;
 			}
 			
 			if($axResults > 0) {
-				$data['paginator'][0]['Text20'] = 2;
+				$data['paginator'][$i]['Text20'] = 2;
 			}
 
 			$i++;

@@ -26,7 +26,7 @@ class Home extends CI_Controller
 	}
 
 	public function updateState() {
-		$this->db->select('dyelot, Text11');
+		$this->db->select('Dyelot, Text11');
 		$this->db->from('dyelots');
 		$this->db->where('State =', 25);
 		$orgatex = $this->db->get()->result();
@@ -35,7 +35,7 @@ class Home extends CI_Controller
 		// $kemarin = date('Y-m-d 00:00:00', strtotime('0 days ago'));
 		// $test = $this->timbangan_ax->query("SELECT TOP 100 * FROM dbo.領料檔 ORDER BY 開始時間 DESC")->result();
 		// var_dump($test); die();
-		
+
 		foreach($orgatex as $data) {
 			$ds = str_replace('/', '', $data->Dyelot) . 'KP' . $data->Text11 . 'D';
 			$dsResults = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 = '$ds'")->num_rows();
