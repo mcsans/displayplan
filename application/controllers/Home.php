@@ -44,7 +44,7 @@ class Home extends CI_Controller
 			$axResults = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 = '$ax'")->num_rows();
 
 			if($dsResults > 0 && $axResults > 0) {
-				$this->db->where('Dyelot', $data->dyelot);
+				$this->db->where('Dyelot', $data->Dyelot);
         $this->db->update('dyelots', ['State' => 27]);
 
 				$this->output->set_content_type('application/json');
