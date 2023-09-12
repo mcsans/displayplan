@@ -12,7 +12,25 @@ $(document).ready(function() {
       $('#2-count').html(getCookie(`1-count-${dateOnly()}`));
       
       console.log('task!');
-    }, 1000);
+    }, 2000);
+
+    setInterval(function() {
+      $.ajax({
+        url: 'http://localhost:3000/transData',
+        method: 'GET',
+        success: function(response) {
+            console.log(response);
+            // Handle the successful response here
+
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+            // Handle the error response here
+        }
+      });
+
+      console.log('transData!');
+    }, 3600000);
   }
   
   if (segment.toLowerCase() == 'home/') {

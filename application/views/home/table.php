@@ -53,7 +53,7 @@
     </tbody>
   </table>
   
-  <div class="d-flex justify-content-between">
+  <div class="d-flex justify-content-between d-none">
     <span class="mt-2">Showing <?= ++$pagination['from'] ?> to <?= $pagination['to'] ?> from <?= $pagination['total'] ?> entries</span>
   
     <nav>
