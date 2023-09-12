@@ -33,22 +33,35 @@ class Home extends CI_Controller
 		
 		// $today = date('Y-m-d H:i:s');
 		// $kemarin = date('Y-m-d 00:00:00', strtotime('0 days ago'));
+
 		// $test = $this->timbangan_ax->query("SELECT TOP 100 * FROM dbo.領料檔 ORDER BY 開始時間 DESC")->result();
 		// var_dump($test); die();
 
 		foreach($orgatex as $data) {
 			$ds = str_replace('/', '', $data->Dyelot) . 'KP' . $data->Text11 . 'D';
-			$dsResults = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 = '$ds'")->num_rows();
+			$dsResults = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 = '$ds'");
 			
 			$ax = str_replace('/', '', $data->Dyelot) . 'KP' . $data->Text11 . 'X';
-			$axResults = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 = '$ax'")->num_rows();
+			$axResults = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 = '$ax'");
 
-			if($dsResults > 0 && $axResults > 0) {
+			if($dsResults->num_rows() > 0 && $axResults->num_rows() > 0) {
 				$this->db->where('Dyelot', $data->Dyelot);
-        $this->db->update('dyelots', ['State' => 27]);
+        $this->db->update('Dyelots', ['State' => 27]);
 
 				$this->output->set_content_type('application/json');
         echo json_encode(['UpdateState' => 'success!']);
+			}
+
+			if($dsResults->num_rows() > 0) {
+				$actualAmount = $this->timbangan_ds->query("SELECT SUM(實際重量) AS total_sum FROM dbo.領料檔 WHERE 唯一編號 = '$ds'")->result()[0]->total_sum;
+				$this->db->where('Dyelot', $data->Dyelot);
+        $this->db->update('Dyelot_Recipe', ['ActualAmount' => $actualAmount]);
+			}
+
+			if($axResults->num_rows() > 0) {
+				$actualAmount = $this->timbangan_ax->query("SELECT SUM(實際重量) AS total_sum FROM dbo.領料檔 WHERE 唯一編號 = '$ax'")->result()[0]->total_sum;
+				$this->db->where('Dyelot', $data->Dyelot);
+        $this->db->update('Dyelot_Recipe', ['ActualAmount' => $actualAmount]);
 			}
 		}
 	}
