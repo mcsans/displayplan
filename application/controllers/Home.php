@@ -34,8 +34,8 @@ class Home extends CI_Controller
 		// $today = date('Y-m-d H:i:s');
 		// $kemarin = date('Y-m-d 00:00:00', strtotime('0 days ago'));
 
-		// $test = $this->timbangan_ax->query("SELECT TOP 100 * FROM dbo.領料檔 ORDER BY 開始時間 DESC")->result();
-		// var_dump($test); die();
+		$test = $this->timbangan_ax->query("SELECT TOP 100 * FROM dbo.領料檔 ORDER BY 開始時間 DESC")->result();
+		var_dump($test); die();
 
 		foreach($orgatex as $data) {
 			$ds = str_replace('/', '', $data->Dyelot) . 'KP' . $data->Text11 . 'D';
@@ -53,15 +53,21 @@ class Home extends CI_Controller
 			}
 
 			if($dsResults->num_rows() > 0) {
-				$actualAmount = $this->timbangan_ds->query("SELECT SUM(實際重量) AS total_sum FROM dbo.領料檔 WHERE 唯一編號 = '$ds'")->result()[0]->total_sum;
-				$this->db->where('Dyelot', $data->Dyelot);
-        $this->db->update('Dyelot_Recipe', ['ActualAmount' => $actualAmount]);
+				// $actualAmount = $this->timbangan_ds->query("SELECT SUM(實際重量) AS total_sum FROM dbo.領料檔 WHERE 唯一編號 = '$ds'")->result()[0]->total_sum;
+				// $this->db->where('Dyelot', $data->Dyelot);
+        // $this->db->update('Dyelot_Recipe', ['ActualAmount' => $actualAmount]);
+				
+				$this->db->where('ProductShortName', $dsResults->result()->藥劑編號);
+        $this->db->update('Dyelot_Recipe', ['ActualAmount' => $dsResults->result()->實際重量]);
 			}
 
 			if($axResults->num_rows() > 0) {
-				$actualAmount = $this->timbangan_ax->query("SELECT SUM(實際重量) AS total_sum FROM dbo.領料檔 WHERE 唯一編號 = '$ax'")->result()[0]->total_sum;
-				$this->db->where('Dyelot', $data->Dyelot);
-        $this->db->update('Dyelot_Recipe', ['ActualAmount' => $actualAmount]);
+				// $actualAmount = $this->timbangan_ax->query("SELECT SUM(實際重量) AS total_sum FROM dbo.領料檔 WHERE 唯一編號 = '$ax'")->result()[0]->total_sum;
+				// $this->db->where('Dyelot', $data->Dyelot);
+        // $this->db->update('Dyelot_Recipe', ['ActualAmount' => $actualAmount]);
+
+				$this->db->where('ProductShortName', $axResults->result()->藥劑編號);
+        $this->db->update('Dyelot_Recipe', ['ActualAmount' => $axResults->result()->實際重量]);
 			}
 		}
 	}
