@@ -35,7 +35,6 @@ class Home extends CI_Controller
 		// $kemarin = date('Y-m-d 00:00:00', strtotime('0 days ago'));
 
 		$test = $this->timbangan_ax->query("SELECT TOP 100 * FROM dbo.領料檔 ORDER BY 開始時間 DESC")->result();
-		var_dump($test); die();
 
 		foreach($orgatex as $data) {
 			$ds = str_replace('/', '', $data->Dyelot) . 'KP' . $data->Text11 . 'D';
@@ -57,8 +56,8 @@ class Home extends CI_Controller
 				// $this->db->where('Dyelot', $data->Dyelot);
         // $this->db->update('Dyelot_Recipe', ['ActualAmount' => $actualAmount]);
 				
-				$this->db->where('ProductShortName', $dsResults->result()->藥劑編號);
-        $this->db->update('Dyelot_Recipe', ['ActualAmount' => $dsResults->result()->實際重量]);
+				$this->db->where('ProductShortName', $dsResults->row()->藥劑編號);
+        $this->db->update('Dyelot_Recipe', ['ActualAmount' => $dsResults->row()->實際重量]);
 			}
 
 			if($axResults->num_rows() > 0) {
@@ -66,8 +65,8 @@ class Home extends CI_Controller
 				// $this->db->where('Dyelot', $data->Dyelot);
         // $this->db->update('Dyelot_Recipe', ['ActualAmount' => $actualAmount]);
 
-				$this->db->where('ProductShortName', $axResults->result()->藥劑編號);
-        $this->db->update('Dyelot_Recipe', ['ActualAmount' => $axResults->result()->實際重量]);
+				$this->db->where('ProductShortName', $axResults->row()->藥劑編號);
+        $this->db->update('Dyelot_Recipe', ['ActualAmount' => $axResults->row()->實際重量]);
 			}
 		}
 	}
