@@ -66,16 +66,19 @@ class m_home extends CI_Model
 		$i = 0;
 		foreach($data['paginator'] as $orgatex) {
 			$ds = str_replace('/', '', $orgatex['Dyelot']) . 'KP' . $orgatex['Text11'] . 'D';
-			$dsResults = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 = '$ds'")->num_rows();
+			$dsResults = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 = '$ds'")->result();
 			
 			$ax = str_replace('/', '', $orgatex['Dyelot']) . 'KP' . $orgatex['Text11'] . 'X';
 			$axResults = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 = '$ax'")->num_rows();
+			
+			$dsTotal = $this->db->query("SELECT * FROM Dyelot_recipe WHERE Dyelot = '" .$orgatex['Dyelot']. "' AND RecipeUnit = '%'")->num_rows();
+			$axTotal = $this->db->query("SELECT * FROM Dyelot_recipe WHERE Dyelot = '" .$orgatex['Dyelot']. "' AND RecipeUnit = 'g/l'")->num_rows();
 
-			if($dsResults > 0) {
+			if($dsResults == $dsTotal) {
 				$data['paginator'][$i]['Text20'] = 1;
 			}
 			
-			if($axResults > 0) {
+			if($axResults == $axTotal) {
 				$data['paginator'][$i]['Text20'] = 2;
 			}
 
