@@ -4,6 +4,7 @@
       <tr align="center">
         <th class="bg-primary text-light text-uppercase">No</th>
         <th class="bg-primary text-light text-uppercase">Mesin</th>
+        <th class="bg-primary text-light text-uppercase">ID_WO</th>
         <th class="bg-primary text-light text-uppercase">KP</th>
         <th class="bg-primary text-light text-uppercase">Kain</th>
         <th class="bg-primary text-light text-uppercase">Warna</th>
@@ -28,6 +29,7 @@
       <tr>
         <td align="center" class="<?= $day1 ?> <?= $day2 ?>" width="1%"><?= ++$i; ?></td>
         <td align="center" class="<?= $day1 ?> <?= $day2 ?>"><?= $data['Machine'] ?></td>
+        <td align="center" class="<?= $day1 ?> <?= $day2 ?>"><?= $data['Dyelot'] ?></td>
         <td align="center" class="<?= $day1 ?> <?= $day2 ?>"><?= $data['Text11'] ?></td>
         <td align="center" class="<?= $day1 ?> <?= $day2 ?>"><?= $data['Article'] ?></td>
         <td align="center" class="<?= $day1 ?> <?= $day2 ?>"><?= $data['ColourDescript'] ?></td>
