@@ -66,7 +66,7 @@ class m_home extends CI_Model
 		$i = 0;
 		foreach($data['paginator'] as $orgatex) {
 			$ds = str_replace('/', '', $orgatex['Dyelot']) . 'KP' . $orgatex['Text11'] . 'D';
-			$dsResults = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 = '$ds'")->result();
+			$dsResults = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 = '$ds'")->num_rows();
 			
 			$ax = str_replace('/', '', $orgatex['Dyelot']) . 'KP' . $orgatex['Text11'] . 'X';
 			$axResults = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 = '$ax'")->num_rows();
