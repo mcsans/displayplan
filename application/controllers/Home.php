@@ -36,13 +36,16 @@ class Home extends CI_Controller
 		// $test = $this->timbangan_ax->query("SELECT TOP 100 * FROM dbo.領料檔 ORDER BY 開始時間 DESC")->result();
 
 		foreach($orgatex as $data) {
-			$ds = str_replace('/', '', $data->Dyelot) . 'KP' . $data->Text11 . 'D';
-			$dsResults = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 = '$ds'");
+			$ds = str_replace('/', '', $data->Dyelot) . 'KP' . $data->Text11;
+			$dsResults = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%$ds%'");
 			
-			$ax = str_replace('/', '', $data->Dyelot) . 'KP' . $data->Text11 . 'X';
-			$axResults = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 = '$ax'");
+			$ax = str_replace('/', '', $data->Dyelot) . 'KP' . $data->Text11;
+			$axResults = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%$ax%'");
 
-			if($dsResults->num_rows() > 0 && $axResults->num_rows() > 0) {
+			$dsTotal = $this->db->query("SELECT * FROM Dyelot_recipe WHERE Dyelot = '" .$orgatex['Dyelot']. "' AND RecipeUnit = '%'")->num_rows();
+			$axTotal = $this->db->query("SELECT * FROM Dyelot_recipe WHERE Dyelot = '" .$orgatex['Dyelot']. "' AND RecipeUnit = 'g/l'")->num_rows();
+
+			if($dsResults->num_rows() == $dsTotal && $axResults->num_rows() == $axTotal) {
 				$this->db->where('Dyelot', $data->Dyelot);
         $this->db->update('Dyelots', ['State' => 27]);
 
@@ -60,7 +63,7 @@ class Home extends CI_Controller
 			}
 
 			if($axResults->num_rows() > 0) {
-				$idwokp = $dsResults->row()->唯一編號;
+				$idwokp = $axResults->row()->唯一編號;
 				$idwo  	= substr($idwokp, 0, 2) . '/' . substr($idwokp, 2, 4) . '/' . substr($idwokp, 6, 4);
 
 				$this->db->where('Dyelot', $idwo);
@@ -78,8 +81,8 @@ class Home extends CI_Controller
 		
 		// $today = date('Y-m-d H:i:s');
 		// $kemarin = date('Y-m-d 00:00:00', strtotime('0 days ago'));
-		// $test = $this->timbangan_ds->query("SELECT TOP 100 * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%WO09230213%' AND 藥劑編號='MC/0102/0001' ORDER BY 開始時間 DESC")->result();
-		// var_dump($test); die();
+		$test = $this->timbangan_ds->query("SELECT TOP 100 * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%KP3773%' ORDER BY 開始時間 DESC")->result();
+		var_dump($test); die();
 
 		foreach($orgatex as $data) {
 			$ds = str_replace('/', '', $data->Dyelot) . 'KP' . $data->Text11 . 'D';

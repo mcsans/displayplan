@@ -65,14 +65,20 @@ class m_home extends CI_Model
 		// update banner
 		$i = 0;
 		foreach($data['paginator'] as $orgatex) {
-			$ds = str_replace('/', '', $orgatex['Dyelot']) . 'KP' . $orgatex['Text11'] . 'D';
-			$dsResults = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 = '$ds'")->num_rows();
+			$ds = str_replace('/', '', $orgatex['Dyelot']) . 'KP' . $orgatex['Text11'];
+			$dsResults = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%$ds%'")->num_rows();
 			
-			$ax = str_replace('/', '', $orgatex['Dyelot']) . 'KP' . $orgatex['Text11'] . 'X';
-			$axResults = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 = '$ax'")->num_rows();
+			$ax = str_replace('/', '', $orgatex['Dyelot']) . 'KP' . $orgatex['Text11'];
+			$axResults = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%$ax%'")->num_rows();
 			
 			$dsTotal = $this->db->query("SELECT * FROM Dyelot_recipe WHERE Dyelot = '" .$orgatex['Dyelot']. "' AND RecipeUnit = '%'")->num_rows();
 			$axTotal = $this->db->query("SELECT * FROM Dyelot_recipe WHERE Dyelot = '" .$orgatex['Dyelot']. "' AND RecipeUnit = 'g/l'")->num_rows();
+
+			// var_dump($dsResults . ' ds result');
+			// var_dump($dsTotal . ' ds total');
+			// var_dump($axResults . ' ax result');
+			// var_dump($axTotal . ' ax total');
+			// echo '<hr>';
 
 			if($dsResults == $dsTotal) {
 				$data['paginator'][$i]['Text20'] = 1;
