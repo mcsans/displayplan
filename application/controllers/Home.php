@@ -27,8 +27,8 @@ class Home extends CI_Controller
 
 	public function updateState() {
 		$this->db->select('Dyelot, Text11');
-		$this->db->from('dyelots');
-		$this->db->where('State =', 25);
+		$this->db->from('Dyelots');
+		$this->db->where('State', 25);
 		$orgatex = $this->db->get()->result();
 		
 		// $today = date('Y-m-d H:i:s');
@@ -42,8 +42,8 @@ class Home extends CI_Controller
 			$ax = str_replace('/', '', $data->Dyelot) . 'KP' . $data->Text11;
 			$axResults = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%$ax%'");
 			
-			$dsTotal = $this->db->query("SELECT * FROM Dyelot_recipe WHERE Dyelot = '" .$orgatex['Dyelot']. "' AND RecipeUnit = '%'")->num_rows();
-			$axTotal = $this->db->query("SELECT * FROM Dyelot_recipe WHERE Dyelot = '" .$orgatex['Dyelot']. "' AND RecipeUnit = 'g/l'")->num_rows();
+			$dsTotal = $this->db->query("SELECT * FROM Dyelot_recipe WHERE Dyelot = '$data->Dyelot' AND RecipeUnit = '%'")->num_rows();
+			$axTotal = $this->db->query("SELECT * FROM Dyelot_recipe WHERE Dyelot = '$data->Dyelot' AND RecipeUnit = 'g/l'")->num_rows();
 
 			if($dsResults->num_rows() == $dsTotal && $axResults->num_rows() == $axTotal) {
 				$this->db->where('Dyelot', $data->Dyelot);
