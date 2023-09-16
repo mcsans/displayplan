@@ -17,16 +17,13 @@ class m_home extends CI_Model
         $perMesin = $this->input->get('perMesin');
 
         // QUERY
-		$this->db->select('*');
+		$this->db->select('QueueTime, Machine, Dyelot, Text11, Article, ColourDescript, ColourNo, Weight, State, Text20');
 		$this->db->from('dyelots');
         
 		$this->db->where('QueueTime >', '2023-08-28 00:00:00');
 		$this->db->where('Machine !=', 'TEMP');
 		$this->db->where('State', 25);
-
-		// $this->db->where('State !=', 40);
-		// $this->db->where('StartTime', null);
-		// $this->db->where('QueueTime !=', null);
+		
         if($perMesin != 'ALL') {
             $this->db->where('Machine', $perMesin);
         }
@@ -62,35 +59,38 @@ class m_home extends CI_Model
 
         $data['paginator'] = $query->get('', $data['perPage'], $data['from'])->result_array();
 
-		// update banner
-		$i = 0;
-		foreach($data['paginator'] as $orgatex) {
-			$ds = str_replace('/', '', $orgatex['Dyelot']) . 'KP' . $orgatex['Text11'];
-			$dsResults = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%$ds%'")->num_rows();
-			
-			$ax = str_replace('/', '', $orgatex['Dyelot']) . 'KP' . $orgatex['Text11'];
-			$axResults = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%$ax%'")->num_rows();
-			
-			$dsTotal = $this->db->query("SELECT Dyelot FROM Dyelot_recipe WHERE Dyelot = '" .$orgatex['Dyelot']. "' AND RecipeUnit = '%'")->num_rows();
-			$axTotal = $this->db->query("SELECT Dyelot FROM Dyelot_recipe WHERE Dyelot = '" .$orgatex['Dyelot']. "' AND RecipeUnit = 'g/l'")->num_rows();
-
-			// var_dump($dsResults . ' ds result');
-			// var_dump($dsTotal . ' ds total');
-			// var_dump($axResults . ' ax result');
-			// var_dump($axTotal . ' ax total');
-			// echo '<hr>';
-
-			if($dsResults == $dsTotal) {
-				$data['paginator'][$i]['Text20'] = 1;
-			}
-			
-			if($axResults == $axTotal) {
-				$data['paginator'][$i]['Text20'] = 2;
-			}
-
-			$i++;
-		}
-
         return $data;
     }
+
+	public function backupBanner()
+	{
+		// // update banner
+		// $i = 0;
+		// foreach($data['paginator'] as $orgatex) {
+		// 	$ds = str_replace('/', '', $orgatex['Dyelot']) . 'KP' . $orgatex['Text11'];
+		// 	$dsResults = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%$ds%'")->num_rows();
+			
+		// 	$ax = str_replace('/', '', $orgatex['Dyelot']) . 'KP' . $orgatex['Text11'];
+		// 	$axResults = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%$ax%'")->num_rows();
+			
+		// 	$dsTotal = $this->db->query("SELECT Dyelot FROM Dyelot_recipe WHERE Dyelot = '" .$orgatex['Dyelot']. "' AND RecipeUnit = '%'")->num_rows();
+		// 	$axTotal = $this->db->query("SELECT Dyelot FROM Dyelot_recipe WHERE Dyelot = '" .$orgatex['Dyelot']. "' AND RecipeUnit = 'g/l'")->num_rows();
+
+		// 	// var_dump($dsResults . ' ds result');
+		// 	// var_dump($dsTotal . ' ds total');
+		// 	// var_dump($axResults . ' ax result');
+		// 	// var_dump($axTotal . ' ax total');
+		// 	// echo '<hr>';
+
+		// 	if($dsResults == $dsTotal) {
+		// 		$data['paginator'][$i]['Text20'] = 1;
+		// 	}
+			
+		// 	if($axResults == $axTotal) {
+		// 		$data['paginator'][$i]['Text20'] = 2;
+		// 	}
+
+		// 	$i++;
+		// }
+	}
 }

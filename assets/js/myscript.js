@@ -1,4 +1,3 @@
-// var debounceTimer;
 const baseurl = $('meta[name="baseurl"]').attr("content");
 const segment = $('meta[name="segment"]').attr("content");
 
@@ -12,7 +11,7 @@ $(document).ready(function() {
 
     setInterval(function() {
       transData();
-    }, 60000);
+    }, 30000);
 
     setInterval(function() {
       callProcedure();
@@ -28,20 +27,26 @@ $(document).ready(function() {
 
     setInterval(function() {
       readData(1);
-    }, 30000);
+    }, 10000);
   }
 });
 
 function updateState() {
-  $.get(`${baseurl}home/updateState/`, {}, function() {}); 
+  $.get(`${baseurl}home/updateState/`, {}, function() {
+		readData(1);
+	}); 
 }
 
 function transData() {
-  $.get(`${baseurl}task/transData/`, {}, function() {}); 
+  $.get(`${baseurl}task/transData/`, {}, function() {
+		readDataTask();
+	}); 
 }
 
 function callProcedure() {
-  $.get(`${baseurl}task/callProcedure/`, {}, function() {}); 
+  $.get(`${baseurl}task/callProcedure/`, {}, function() {
+		readDataTask();
+	}); 
 }
 
 

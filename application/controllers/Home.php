@@ -43,13 +43,26 @@ class Home extends CI_Controller
 			$dsTotal = $this->db->query("SELECT Dyelot FROM Dyelot_recipe WHERE Dyelot = '$data->Dyelot' AND RecipeUnit = '%'")->num_rows();
 			$axTotal = $this->db->query("SELECT Dyelot FROM Dyelot_recipe WHERE Dyelot = '$data->Dyelot' AND RecipeUnit = 'g/l'")->num_rows();
 
+			// update state 27
 			if($dsResults->num_rows() == $dsTotal && $axResults->num_rows() == $axTotal) {
 				$this->db->where('Dyelot', $data->Dyelot);
         $this->db->update('Dyelots', ['State' => 27]);
 
 				$this->updateLastruntimeCount('updateState');
+			} else {
+				// update centang hijau
+				if($dsResults->num_rows() == $dsTotal) {
+					$this->db->where('Dyelot', $data->Dyelot);
+        	$this->db->update('Dyelots', ['Text20' => 1]);
+				}
+				
+				if($axResults->num_rows() == $axTotal) {
+					$this->db->where('Dyelot', $data->Dyelot);
+        	$this->db->update('Dyelots', ['Text20' => 2]);
+				}
 			}
 
+			// actual amount
 			if($dsResults->num_rows() > 0) {
 				$idwokp = $dsResults->row()->唯一編號;
 				$idwo  	= substr($idwokp, 0, 2) . '/' . substr($idwokp, 2, 4) . '/' . substr($idwokp, 6, 4);
