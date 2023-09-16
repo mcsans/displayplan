@@ -30,10 +30,6 @@ class Home extends CI_Controller
 		$this->db->from('Dyelots');
 		$this->db->where('State', 25);
 		$orgatex = $this->db->get()->result();
-		
-		// $today = date('Y-m-d H:i:s');
-		// $kemarin = date('Y-m-d 00:00:00', strtotime('0 days ago'));
-		// $test = $this->timbangan_ax->query("SELECT TOP 100 * FROM dbo.領料檔 ORDER BY 開始時間 DESC")->result();
 
 		foreach($orgatex as $data) {
 			$ds = str_replace('/', '', $data->Dyelot) . 'KP' . $data->Text11;
@@ -71,5 +67,26 @@ class Home extends CI_Controller
         $this->db->update('Dyelot_Recipe', ['ActualAmount' => $axResults->row()->實際重量]);
 			}
 		}
+	}
+
+	public function Test() {
+		// $today = date('Y-m-d H:i:s');
+		// $kemarin = date('Y-m-d 00:00:00', strtotime('0 days ago'));
+		// $ds = $this->timbangan_ds->query("SELECT TOP 100 * FROM dbo.領料檔 ORDER BY 開始時間 DESC")->result();
+		// $ax = $this->timbangan_ax->query("SELECT TOP 100 * FROM dbo.領料檔 ORDER BY 開始時間 DESC")->result();
+
+		// $ds = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%WO09230240KP3827%'")->result();
+		// $ax = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%WO09230240KP3827%'")->result();
+		// $ds = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%WO09230269KP3852%'")->result();
+		// $ax = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%WO09230269KP3852%'")->result();
+		// $ds = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%WO09230275KP3856%'")->result();
+		$ax = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%WO09230275KP3856%'")->result();
+		// $ds = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%WO09230265KP3848%'")->result();
+		// $ax = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%WO09230265KP3848%'")->result();
+
+		// var_dump($ds); 
+		echo '<hr>';
+		var_dump($ax); 
+		die();
 	}
 }
