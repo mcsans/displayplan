@@ -4,11 +4,11 @@ const segment = $('meta[name="segment"]').attr("content");
 
 $(document).ready(function() {
   if (segment.toLowerCase() == 'task/') {
+    readDataTask();
+    
     setInterval(function() {
-      $.get(`${baseurl}${segment}/readDataTask/`, {}, function(data) {
-				$('tbody').html(data);
-			});
-    }, 2000);
+      readDataTask();
+    }, 10000);
 
     setInterval(function() {
       transData();
@@ -16,7 +16,7 @@ $(document).ready(function() {
 
     setInterval(function() {
       callProcedure();
-    }, 60000);
+    }, 90000);
   }
   
   if (segment.toLowerCase() == 'home/') {
@@ -24,8 +24,11 @@ $(document).ready(function() {
     
     setInterval(function() {
       updateState();
-      readData(1);
     }, 60000);
+
+    setInterval(function() {
+      readData(1);
+    }, 30000);
   }
 });
 
@@ -81,3 +84,9 @@ function readData(page) { // load data (tbody) pagination global
   }
 }
 // ===END COMPONENTS PAGINATION GLOBAL===
+
+function readDataTask() {
+  $.get(`${baseurl}${segment}/readDataTask/`, {}, function(data) {
+    $('tbody').html(data);
+  });
+}
