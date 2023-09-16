@@ -28,22 +28,7 @@
                 <th class="bg-primary text-light text-uppercase">Action</th>
               </tr>
             </thead>
-            <tbody>
-              <tr align="center">
-                <td width="1%">1</td>
-                <td align="left">Update State From DS & AX Wanfeng</td>
-                <td id="1-last"><?= date('Y-m-d H:i:s') ?></td>
-                <td id="1-count">1</td>
-                <td width="1%"><button type="button" class="btn btn-sm btn-warning text-white" onClick="updateState()">RUN</button></td>
-              </tr>
-              <!-- <tr align="center">
-                <td width="1%">2</td>
-                <td align="left">Update State From AX Wanfeng</td>
-                <td id="2-last"><?= date('Y-m-d H:i:s') ?></td>
-                <td id="2-count">1</td>
-                <td width="1%"><button type="button" class="btn btn-sm btn-warning text-white" onClick="updateState()">RUN</button></td>
-              </tr> -->
-            </tbody>
+            <tbody id="tbody"></tbody>
           </table>
         </div>
       </div>

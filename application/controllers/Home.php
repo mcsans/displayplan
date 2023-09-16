@@ -10,6 +10,8 @@ class Home extends CI_Controller
 		$this->load->database();
 		$this->timbangan_ds = $this->load->database('timbangan_ds', TRUE);
 		$this->timbangan_ax = $this->load->database('timbangan_ax', TRUE);
+		$this->server       = $this->load->database('server', TRUE);
+		$this->wanfeng      = $this->load->database('wanfeng', TRUE);
 
 		$this->load->model('m_home');
 	}
@@ -45,8 +47,7 @@ class Home extends CI_Controller
 				$this->db->where('Dyelot', $data->Dyelot);
         $this->db->update('Dyelots', ['State' => 27]);
 
-				$this->output->set_content_type('application/json');
-        echo json_encode(['UpdateState' => 'success!']);
+				$this->updateLastruntimeCount('updateState');
 			}
 
 			if($dsResults->num_rows() > 0) {

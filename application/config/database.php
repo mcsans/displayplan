@@ -138,3 +138,47 @@ $db['timbangan_ax'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE,
 );
+
+$db['server'] = array(
+	'dsn'	=> '',
+	'hostname' => '192.168.2.10',
+	'username' => 'root',
+	'password' => '',
+	'database' => 'asiantex2023',
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => TRUE,
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt' => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE
+);
+
+$db['wanfeng'] = array(
+	'dsn'	=> '',
+	'hostname' => '192.168.2.5',
+	'username' => 'root',
+	'password' => '',
+	'database' => 'asiantex2022',
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => TRUE,
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt' => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => TRUE
+);

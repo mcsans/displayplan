@@ -5,54 +5,40 @@ const segment = $('meta[name="segment"]').attr("content");
 $(document).ready(function() {
   if (segment.toLowerCase() == 'task/') {
     setInterval(function() {
-      $('#1-last').html(getCookie(`1-last-${dateOnly()}`));
-      $('#1-count').html(getCookie(`1-count-${dateOnly()}`));
+      $.get(`${baseurl}${segment}/readDataTask/`, {}, function(data) {
+				$('tbody').html(data);
+			});
+    }, 2000);
 
-      $('#2-last').html(getCookie(`1-last-${dateOnly()}`));
-      $('#2-count').html(getCookie(`1-count-${dateOnly()}`));
-      
-      console.log('task!');
-    }, 5000);
+    setInterval(function() {
+      transData();
+    }, 60000);
 
-    // setInterval(function() {
-    //   $.ajax({
-    //     url: 'http://localhost:3000/transData',
-    //     method: 'GET',
-    //     success: function(response) {
-    //         console.log(response);
-    //         // Handle the successful response here
-
-    //     },
-    //     error: function(xhr, status, error) {
-    //         console.error(error);
-    //         // Handle the error response here
-    //     }
-    //   });
-
-    //   console.log('transData!');
-    // }, 3600000);
+    setInterval(function() {
+      callProcedure();
+    }, 60000);
   }
   
   if (segment.toLowerCase() == 'home/') {
     readData(1);
-    updateState();
     
     setInterval(function() {
-      readData(1);
       updateState();
-      console.log('success!');
-    }, 10000);
+      readData(1);
+    }, 60000);
   }
 });
 
 function updateState() {
-  $.get(`${baseurl}${segment}/updateState/`, {}, function(data) {
-    if (data.UpdateState != null) {
-      const befCookie = getCookie(`1-count-${dateOnly()}`);
-      setCookie(`1-last-${dateOnly()}`, dateTime(), 1);
-      setCookie(`1-count-${dateOnly()}`, (befCookie !== null ? parseInt(befCookie)+1 : 1), 1);
-    }
-  }); 
+  $.get(`${baseurl}home/updateState/`, {}, function() {}); 
+}
+
+function transData() {
+  $.get(`${baseurl}task/transData/`, {}, function() {}); 
+}
+
+function callProcedure() {
+  $.get(`${baseurl}task/callProcedure/`, {}, function() {}); 
 }
 
 
@@ -95,56 +81,3 @@ function readData(page) { // load data (tbody) pagination global
   }
 }
 // ===END COMPONENTS PAGINATION GLOBAL===
-
-
-
-// COOKIE
-function setCookie(name, value, days) { // Fungsi untuk mengatur cookie
-  const expires = new Date();
-  expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
-  document.cookie = name + '=' + value + ';expires=' + expires.toUTCString();
-}
-
-function getCookie(name) { // Fungsi untuk mengambil nilai cookie
-  const cookieName = name + '=';
-  const cookies = document.cookie.split(';');
-  for (let i = 0; i < cookies.length; i++) {
-      let cookie = cookies[i].trim();
-      if (cookie.indexOf(cookieName) === 0) {
-          return cookie.substring(cookieName.length, cookie.length);
-      }
-  }
-  return null;
-}
-// ===END COOKIE===
-
-
-
-// DATE
-function dateTime() {
-  var currentDate = new Date();
-
-  var year = currentDate.getFullYear();
-  var month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Ditambah 1 karena bulan dimulai dari 0
-  var day = String(currentDate.getDate()).padStart(2, '0');
-  var hour = String(currentDate.getHours()).padStart(2, '0');
-  var minute = String(currentDate.getMinutes()).padStart(2, '0');
-  var second = String(currentDate.getSeconds()).padStart(2, '0');
-
-  var formattedDate = year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
-
-  return formattedDate;
-}
-
-function dateOnly() {
-  var currentDate = new Date();
-
-  var year = currentDate.getFullYear();
-  var month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Ditambah 1 karena bulan dimulai dari 0
-  var day = String(currentDate.getDate()).padStart(2, '0');
-
-  var formattedDate = year + '-' + month + '-' + day;
-
-  return formattedDate;
-}
-// ===END DATE===
