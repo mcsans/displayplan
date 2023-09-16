@@ -71,8 +71,8 @@ class m_home extends CI_Model
 			$ax = str_replace('/', '', $orgatex['Dyelot']) . 'KP' . $orgatex['Text11'];
 			$axResults = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%$ax%'")->num_rows();
 			
-			$dsTotal = $this->db->query("SELECT * FROM Dyelot_recipe WHERE Dyelot = '" .$orgatex['Dyelot']. "' AND RecipeUnit = '%'")->num_rows();
-			$axTotal = $this->db->query("SELECT * FROM Dyelot_recipe WHERE Dyelot = '" .$orgatex['Dyelot']. "' AND RecipeUnit = 'g/l'")->num_rows();
+			$dsTotal = $this->db->query("SELECT Dyelot FROM Dyelot_recipe WHERE Dyelot = '" .$orgatex['Dyelot']. "' AND RecipeUnit = '%'")->num_rows();
+			$axTotal = $this->db->query("SELECT Dyelot FROM Dyelot_recipe WHERE Dyelot = '" .$orgatex['Dyelot']. "' AND RecipeUnit = 'g/l'")->num_rows();
 
 			// var_dump($dsResults . ' ds result');
 			// var_dump($dsTotal . ' ds total');

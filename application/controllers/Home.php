@@ -40,8 +40,8 @@ class Home extends CI_Controller
 			$ax = str_replace('/', '', $data->Dyelot) . 'KP' . $data->Text11;
 			$axResults = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%$ax%'");
 			
-			$dsTotal = $this->db->query("SELECT * FROM Dyelot_recipe WHERE Dyelot = '$data->Dyelot' AND RecipeUnit = '%'")->num_rows();
-			$axTotal = $this->db->query("SELECT * FROM Dyelot_recipe WHERE Dyelot = '$data->Dyelot' AND RecipeUnit = 'g/l'")->num_rows();
+			$dsTotal = $this->db->query("SELECT Dyelot FROM Dyelot_recipe WHERE Dyelot = '$data->Dyelot' AND RecipeUnit = '%'")->num_rows();
+			$axTotal = $this->db->query("SELECT Dyelot FROM Dyelot_recipe WHERE Dyelot = '$data->Dyelot' AND RecipeUnit = 'g/l'")->num_rows();
 
 			if($dsResults->num_rows() == $dsTotal && $axResults->num_rows() == $axTotal) {
 				$this->db->where('Dyelot', $data->Dyelot);
@@ -81,13 +81,13 @@ class Home extends CI_Controller
 		// $ds = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%WO09230269KP3852%'")->result();
 		// $ax = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%WO09230269KP3852%'")->result();
 		// $ds = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%WO09230275KP3856%'")->result();
-		$ax = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%WO09230275KP3856%'")->result();
+		// $ax = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%WO09230275KP3856%'")->result();
 		// $ds = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%WO09230265KP3848%'")->result();
 		// $ax = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%WO09230265KP3848%'")->result();
 
 		// var_dump($ds); 
-		echo '<hr>';
-		var_dump($ax); 
-		die();
+		// echo '<hr>';
+		// var_dump($ax); 
+		// die();
 	}
 }
