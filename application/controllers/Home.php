@@ -83,6 +83,12 @@ class Home extends CI_Controller
 		}
 	}
 
+	public function updateLastruntimeCount($table) {
+		$lastruntime = date('Y-m-d H:i:s');
+		$count = $this->server->query("SELECT count FROM tbltask WHERE name='$table'")->row()->count + 1;
+		$this->server->query("UPDATE tbltask SET lastruntime='$lastruntime', count=$count WHERE name='$table'");
+	}
+
 	public function Test() {
 		// $today = date('Y-m-d H:i:s');
 		// $kemarin = date('Y-m-d 00:00:00', strtotime('0 days ago'));

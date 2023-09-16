@@ -5,17 +5,17 @@ $(document).ready(function() {
   if (segment.toLowerCase() == 'task/') {
     readDataTask();
     
-    setInterval(function() {
-      readDataTask();
-    }, 10000);
+    // setInterval(function() {
+    //   readDataTask();
+    // }, 10000);
 
     setInterval(function() {
       transData();
-    }, 30000);
+    }, 60000);
 
     setInterval(function() {
       callProcedure();
-    }, 90000);
+    }, 60000);
   }
   
   if (segment.toLowerCase() == 'home/') {
@@ -25,9 +25,9 @@ $(document).ready(function() {
       updateState();
     }, 60000);
 
-    setInterval(function() {
-      readData(1);
-    }, 10000);
+    // setInterval(function() {
+    //   readData(1);
+    // }, 10000);
   }
 });
 
