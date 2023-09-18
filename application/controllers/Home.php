@@ -72,12 +72,12 @@ class Home extends CI_Controller
 				}
 			} else {
 				// update centang hijau
-				if($dsResults->num_rows() == $dsTotal) {
+				if($dsResults->num_rows() == $dsTotal && $dsResults->num_rows() > 0) {
 					$this->db->where('Dyelot', $data->Dyelot);
         	$this->db->update('Dyelots', ['Text20' => 1]);
 				}
 				
-				if($axResults->num_rows() == $axTotal) {
+				if($axResults->num_rows() == $axTotal && $axResults->num_rows() > 0) {
 					$this->db->where('Dyelot', $data->Dyelot);
         	$this->db->update('Dyelots', ['Text20' => 2]);
 				}
