@@ -70,8 +70,6 @@ class Home extends CI_Controller
 						$this->db->update('Dyelot_Recipe', ['ActualAmount' => $axRes->實際重量]);
 					}
 				}
-
-				$this->updateLastruntimeCount('updateState');
 			} else {
 				// update centang hijau
 				if($dsResults->num_rows() == $dsTotal) {
@@ -85,6 +83,8 @@ class Home extends CI_Controller
 				}
 			}
 		}
+
+		$this->updateLastruntimeCount('updateState');
 	}
 
 	public function updateLastruntimeCount($table) {
