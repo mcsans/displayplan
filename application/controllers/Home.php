@@ -48,6 +48,29 @@ class Home extends CI_Controller
 				$this->db->where('Dyelot', $data->Dyelot);
         $this->db->update('Dyelots', ['State' => 27]);
 
+				// actual amount
+				if($dsResults->num_rows() > 0) {
+					foreach($dsResults->result() as $dsRes) {
+						$idwokp = $dsRes->唯一編號;
+						$idwo  	= substr($idwokp, 0, 2) . '/' . substr($idwokp, 2, 4) . '/' . substr($idwokp, 6, 4);
+						
+						$this->db->where('Dyelot', $idwo);
+						$this->db->where('ProductCode', $dsRes->藥劑編號);
+						$this->db->update('Dyelot_Recipe', ['ActualAmount' => $dsRes->實際重量]);
+					}
+				}
+
+				if($axResults->num_rows() > 0) {
+					foreach($axResults->result() as $axRes) {
+						$idwokp = $axRes->唯一編號;
+						$idwo  	= substr($idwokp, 0, 2) . '/' . substr($idwokp, 2, 4) . '/' . substr($idwokp, 6, 4);
+	
+						$this->db->where('Dyelot', $idwo);
+						$this->db->where('ProductCode', $axRes->藥劑編號);
+						$this->db->update('Dyelot_Recipe', ['ActualAmount' => $axRes->實際重量]);
+					}
+				}
+
 				$this->updateLastruntimeCount('updateState');
 			} else {
 				// update centang hijau
@@ -60,25 +83,6 @@ class Home extends CI_Controller
 					$this->db->where('Dyelot', $data->Dyelot);
         	$this->db->update('Dyelots', ['Text20' => 2]);
 				}
-			}
-
-			// actual amount
-			if($dsResults->num_rows() > 0) {
-				$idwokp = $dsResults->row()->唯一編號;
-				$idwo  	= substr($idwokp, 0, 2) . '/' . substr($idwokp, 2, 4) . '/' . substr($idwokp, 6, 4);
-				
-				$this->db->where('Dyelot', $idwo);
-				$this->db->where('ProductCode', $dsResults->row()->藥劑編號);
-        $this->db->update('Dyelot_Recipe', ['ActualAmount' => $dsResults->row()->實際重量]);
-			}
-
-			if($axResults->num_rows() > 0) {
-				$idwokp = $axResults->row()->唯一編號;
-				$idwo  	= substr($idwokp, 0, 2) . '/' . substr($idwokp, 2, 4) . '/' . substr($idwokp, 6, 4);
-
-				$this->db->where('Dyelot', $idwo);
-				$this->db->where('ProductCode', $axResults->row()->藥劑編號);
-        $this->db->update('Dyelot_Recipe', ['ActualAmount' => $axResults->row()->實際重量]);
 			}
 		}
 	}
@@ -97,12 +101,6 @@ class Home extends CI_Controller
 
 		// $ds = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%WO09230240KP3827%'")->result();
 		// $ax = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%WO09230240KP3827%'")->result();
-		// $ds = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%WO09230269KP3852%'")->result();
-		// $ax = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%WO09230269KP3852%'")->result();
-		// $ds = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%WO09230275KP3856%'")->result();
-		// $ax = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%WO09230275KP3856%'")->result();
-		// $ds = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%WO09230265KP3848%'")->result();
-		// $ax = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 唯一編號 LIKE '%WO09230265KP3848%'")->result();
 
 		// var_dump($ds); 
 		// echo '<hr>';
