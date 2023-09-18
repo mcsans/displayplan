@@ -37,7 +37,9 @@ $(document).ready(function() {
 
 function updateState() {
   $.get(`${baseurl}home/updateState/`, {}, function() {
-		readData(1);
+		if (segment.toLowerCase() == 'home/') {
+			readData(1);
+		}
 	}); 
 }
 
