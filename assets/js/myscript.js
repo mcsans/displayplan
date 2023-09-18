@@ -8,6 +8,10 @@ $(document).ready(function() {
     // setInterval(function() {
     //   readDataTask();
     // }, 10000);
+    
+    setInterval(function() {
+      updateState();
+    }, 60000);
 
     setInterval(function() {
       transData();
@@ -21,13 +25,13 @@ $(document).ready(function() {
   if (segment.toLowerCase() == 'home/') {
     readData(1);
     
-    setInterval(function() {
-      updateState();
-    }, 60000);
-
     // setInterval(function() {
-    //   readData(1);
-    // }, 10000);
+    //   updateState();
+    // }, 60000);
+
+    setInterval(function() {
+      readData(1);
+    }, 10000);
   }
 });
 
