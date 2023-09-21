@@ -19,7 +19,7 @@ $(document).ready(function() {
 
     setInterval(function() {
       callProcedure();
-    }, 60000);
+    }, 900000);
   }
   
   if (segment.toLowerCase() == 'home/') {
