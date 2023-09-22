@@ -60,7 +60,9 @@ class Task extends CI_Controller {
 
 		$dataToInsert = [];
 
-		foreach ($displayProsesHistory as $item) {
+		$reversedDisplayProsesHistory = array_reverse($displayProsesHistory);
+
+		foreach ($reversedDisplayProsesHistory as $item) {
 				$id_produksi = $item['id_produksi'];
 				$id_wo = $item['id_wo'];
 				$id_wo_ori = $item['id_wo_ori'];
