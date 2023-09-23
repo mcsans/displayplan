@@ -23,6 +23,7 @@
               <tr align="center">
                 <th class="bg-primary text-light text-uppercase">No</th>
                 <th class="bg-primary text-light text-uppercase">Event</th>
+                <th class="bg-primary text-light text-uppercase">Status</th>
                 <th class="bg-primary text-light text-uppercase">Last Runtime</th>
                 <th class="bg-primary text-light text-uppercase">Count</th>
                 <th class="bg-primary text-light text-uppercase">Action</th>

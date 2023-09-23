@@ -3,26 +3,34 @@ const segment = $('meta[name="segment"]').attr("content");
 
 $(document).ready(function() {
   if (segment.toLowerCase() == 'task/') {
-    readDataTask();
+		readDataTask();
     
     // setInterval(function() {
     //   readDataTask();
     // }, 10000);
     
     setInterval(function() {
-      updateState();
+			if ($('#updateState').val() != 0) {
+				updateState();
+			}
     }, 60000);
     
     setInterval(function() {
-      updateStatusOrga();
+			if ($('#updateStatusOrga').val() != 0) {
+				updateStatusOrga();
+			}
     }, 60000);
 
     setInterval(function() {
-      transData();
+			if ($('#transData').val() != 0) {
+				transData();
+			}
     }, 60000);
 
     setInterval(function() {
-      callProcedure();
+			if ($('#callProcedure').val() != 0) {
+				callProcedure();
+			}
     }, 3600000);
   }
   
@@ -40,6 +48,7 @@ $(document).ready(function() {
 });
 
 function updateState() {
+	$('.updateState').prop('disabled', true);
   $.get(`${baseurl}home/updateState/`, {}, function() {
 		if (segment.toLowerCase() == 'home/') {
 			readData(1);
@@ -48,19 +57,34 @@ function updateState() {
 }
 
 function updateStatusOrga() {
+	$('.updateStatusOrga').prop('disabled', true);
   $.get(`${baseurl}task/updateStatusOrga/`, {}, function() {
 		readDataTask();
 	}); 
 }
 
 function transData() {
+	$('.transData').prop('disabled', true);
   $.get(`${baseurl}task/transData/`, {}, function() {
 		readDataTask();
 	}); 
 }
 
 function callProcedure() {
-  $.get(`${baseurl}task/callProcedure/`, {}, function() {
+	$('.callProcedure').prop('disabled', true);
+  // $.get(`${baseurl}task/callProcedure/`, {}, function() {
+		readDataTask();
+	// }); 
+}
+
+function running(uri) {
+  $.get(`${baseurl}task/running/${uri}/`, {}, function() {
+		readDataTask();
+	}); 
+}
+
+function stopped(uri) {
+  $.get(`${baseurl}task/stopped/${uri}/`, {}, function() {
 		readDataTask();
 	}); 
 }

@@ -120,6 +120,16 @@ class Task extends CI_Controller {
 		$this->updateLastruntimeCount('updateStatusOrga');
 	}
 
+	public function running($table)
+	{
+		$this->server->query("UPDATE tbltask SET status='1' WHERE name='$table'");
+	}
+
+	public function stopped($table)
+	{
+		$this->server->query("UPDATE tbltask SET status='0' WHERE name='$table'");
+	}
+
 	public function updateLastruntimeCount($table) {
 		$lastruntime = date('Y-m-d H:i:s');
 		$count = $this->server->query("SELECT count FROM tbltask WHERE name='$table'")->row()->count + 1;
