@@ -99,6 +99,27 @@ class Task extends CI_Controller {
 		$this->updateLastruntimeCount('callProcedure');
 	}
 
+	public function updateStatusOrga() {
+		$sqlQuery = "SELECT TOP 3 Dyelot, ReDye, State FROM Dyelots WHERE QueueTime >= DATEADD(day, -7, GETDATE())";
+		$sqlResult = $this->db->query($sqlQuery)->result();
+
+		$queryW = "";
+		$queryIDJS = "";
+		$queryIDWO = [];
+
+		foreach ($sqlResult as $row) {
+			$queryW .= "WHEN id_wo = '". $row->Dyelot ."' THEN '" . $row->ReDye . "' ";
+			$queryIDJS .= "WHEN id_wo = '". $row->Dyelot ."' THEN '" . $row->State . "' ";
+			$queryIDWO[] = "'" . $row->Dyelot . "'";
+		}
+
+		$queryID = implode(', ', $queryIDWO);
+
+		$this->server->query("UPDATE tblwo SET id_w = CASE $queryW ELSE id_w END, id_js = CASE $queryIDJS ELSE id_js END WHERE id_wo IN ($queryID)");
+
+		$this->updateLastruntimeCount('updateStatusOrga');
+	}
+
 	public function updateLastruntimeCount($table) {
 		$lastruntime = date('Y-m-d H:i:s');
 		$count = $this->server->query("SELECT count FROM tbltask WHERE name='$table'")->row()->count + 1;

@@ -12,6 +12,10 @@ $(document).ready(function() {
     setInterval(function() {
       updateState();
     }, 60000);
+    
+    setInterval(function() {
+      updateStatusOrga();
+    }, 60000);
 
     setInterval(function() {
       transData();
@@ -19,7 +23,7 @@ $(document).ready(function() {
 
     setInterval(function() {
       callProcedure();
-    }, 900000);
+    }, 3600000);
   }
   
   if (segment.toLowerCase() == 'home/') {
@@ -40,6 +44,12 @@ function updateState() {
 		if (segment.toLowerCase() == 'home/') {
 			readData(1);
 		}
+	}); 
+}
+
+function updateStatusOrga() {
+  $.get(`${baseurl}task/updateStatusOrga/`, {}, function() {
+		readDataTask();
 	}); 
 }
 
