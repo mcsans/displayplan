@@ -72,9 +72,9 @@ function transData() {
 
 function callProcedure() {
 	$('.callProcedure').prop('disabled', true);
-  // $.get(`${baseurl}task/callProcedure/`, {}, function() {
+  $.get(`${baseurl}task/callProcedure/`, {}, function() {
 		readDataTask();
-	// }); 
+	}); 
 }
 
 function running(uri) {
