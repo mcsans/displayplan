@@ -31,7 +31,7 @@ $(document).ready(function() {
 			if ($('#callProcedure').val() != 0) {
 				callProcedure();
 			}
-    }, 3600000);
+    }, 14400000);
   }
   
   if (segment.toLowerCase() == 'home/') {

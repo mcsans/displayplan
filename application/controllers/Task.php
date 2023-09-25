@@ -28,7 +28,7 @@ class Task extends CI_Controller {
 
 	public function transData() {
 		// TABLE DISPLAY PROSES
-		$displayProses = $this->wanfeng->query("SELECT * FROM tbldisplayproses WHERE start_time BETWEEN CURDATE() - INTERVAL 1 DAY AND NOW() LIMIT 2")->result_array();
+		$displayProses = $this->wanfeng->query("SELECT * FROM tbldisplayproses WHERE start_time BETWEEN CURDATE() - INTERVAL 1 DAY AND NOW()")->result_array();
 
 		$dataToInsert = [];
 
