@@ -18,9 +18,9 @@ class m_home extends CI_Model
 
         // QUERY
 		$this->db->select('QueueTime, Machine, Dyelot, Text11, Article, ColourDescript, ColourNo, Weight, State, Text20');
-		$this->db->from('dyelots');
+		$this->db->from('Dyelots');
         
-		$this->db->where('QueueTime >', '2023-08-28 00:00:00');
+		// $this->db->where('QueueTime >', '2023-08-28 00:00:00');
 		$this->db->where('Machine !=', 'TEMP');
 		$this->db->where('State', 25);
 		
