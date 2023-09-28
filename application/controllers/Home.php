@@ -28,17 +28,17 @@ class Home extends CI_Controller
 	}
 
 	public function updateState() {
-		$this->db->select('Dyelot, Text11');
+		$this->db->select('Dyelot, Text11, LoadTime');
 		$this->db->from('Dyelots');
 		$this->db->where('State', 25);
 		$orgatex = $this->db->get()->result();
 
 		foreach($orgatex as $data) {
 			$ds = str_replace('/', '', $data->Dyelot) . 'KP' . $data->Text11;
-			$dsResults = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 實際重量 != 0 AND 唯一編號 LIKE '%$ds%'");
+			$dsResults = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 實際重量 != 0 AND 開始時間 >= $data->LoadTime AND 唯一編號 LIKE '%$ds%'");
 			
 			$ax = str_replace('/', '', $data->Dyelot) . 'KP' . $data->Text11;
-			$axResults = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 實際重量 != 0 AND 唯一編號 LIKE '%$ax%'");
+			$axResults = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 實際重量 != 0 AND 開始時間 >= $data->LoadTime AND 唯一編號 LIKE '%$ax%'");
 			
 			$dsTotal = $this->db->query("SELECT Dyelot FROM Dyelot_recipe WHERE Dyelot = '$data->Dyelot' AND RecipeUnit = '%'")->num_rows();
 			$axTotal = $this->db->query("SELECT Dyelot FROM Dyelot_recipe WHERE Dyelot = '$data->Dyelot' AND RecipeUnit = 'g/l'")->num_rows() -1;
@@ -99,10 +99,11 @@ class Home extends CI_Controller
 		// $ds = $this->timbangan_ds->query("SELECT TOP 100 * FROM dbo.領料檔 ORDER BY 開始時間 DESC")->result();
 		// $ax = $this->timbangan_ax->query("SELECT TOP 100 * FROM dbo.領料檔 ORDER BY 開始時間 DESC")->result();
 
-		$dsResult = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 實際重量 != 0 AND 唯一編號 LIKE '%WO09233923KP3919%'")->result();
-		$axResult = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 實際重量 != 0 AND 唯一編號 LIKE '%WO09233923KP3919%'")->num_rows();
-		$dsTotal = $this->db->query("SELECT Dyelot FROM Dyelot_recipe WHERE Dyelot = 'WO/0923/3923' AND RecipeUnit = '%'")->num_rows();
-		$axTotal = $this->db->query("SELECT Dyelot FROM Dyelot_recipe WHERE Dyelot = 'WO/0923/3923' AND RecipeUnit = 'g/l'")->num_rows();
+		$dsResult = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 實際重量 != 0 AND 唯一編號 LIKE '%WO08230641KP3588%'")->num_rows();
+		$dsTotal = $this->db->query("SELECT Dyelot, ProductCode FROM Dyelot_recipe WHERE Dyelot = 'WO/0823/0641' AND RecipeUnit = '%'")->result();
+		
+		$axResult = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 實際重量 != 0 AND 唯一編號 LIKE '%WO08230641KP3588%'")->num_rows();
+		$axTotal = $this->db->query("SELECT Dyelot, ProductCode FROM Dyelot_recipe WHERE Dyelot = 'WO/0823/0641' AND RecipeUnit = 'g/l'")->num_rows();
 
 		var_dump($dsResult); 
 		var_dump($dsTotal); 
