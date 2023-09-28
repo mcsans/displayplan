@@ -17,7 +17,7 @@ class m_home extends CI_Model
         $perMesin = $this->input->get('perMesin');
 
         // QUERY
-		$this->db->select('QueueTime, Machine, Dyelot, Text11, Article, ColourDescript, ColourNo, Weight, State, Text20');
+		$this->db->select('LoadTime as QueueTime, Machine, Dyelot, Text11, Article, ColourDescript, ColourNo, Weight, State, Text20');
 		$this->db->from('Dyelots');
         
 		// $this->db->where('QueueTime >', '2023-08-28 00:00:00');
