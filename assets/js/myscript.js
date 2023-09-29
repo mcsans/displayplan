@@ -135,3 +135,12 @@ function readDataTask() {
     $('tbody').html(data);
   });
 }
+
+function endPlan(idwo, kp) {
+	var result = confirm(`Selesaikan timbangan KP ${kp} ?`);
+	if (result) {
+		$.get(`${baseurl}home/endPlan/${btoa(idwo)}`, {}, function() {
+			readData(1);
+		});
+	}
+}

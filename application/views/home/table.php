@@ -13,6 +13,7 @@
         <th class="bg-primary text-light text-uppercase">Antrian Planning</th>
         <th class="bg-primary text-light text-uppercase">Status</th>
         <th class="bg-primary text-light text-uppercase">Selesai</th>
+        <th class="bg-primary text-light text-uppercase">Action</th>
       </tr>
     </thead>
     <tbody>
@@ -49,6 +50,9 @@
 				<td align="center" width="1%">
 					<button type="button" class="btn btn-sm <?= ($data['Text20'] == 1) ? 'btn-success-light' : 'btn-secondary' ?> py-0">DS</button>
 					<button type="button" class="btn btn-sm <?= ($data['Text20'] == 2) ? 'btn-success-light' : 'btn-secondary' ?> py-0">AX</button>
+				</td>
+				<td align="center" width="1%">
+					<button type="button" class="btn btn-sm btn-warning py-0" onClick="endPlan('<?= $data['Dyelot'] ?>', '<?= $data['Text11'] ?>')">END</button>
 				</td>
       </tr>
       <?php endforeach ?>

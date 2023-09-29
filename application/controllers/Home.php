@@ -27,6 +27,12 @@ class Home extends CI_Controller
 			echo $this->load->view('home/table', $data, TRUE);
 	}
 
+	public function endPlan($idwo)
+	{
+		$this->db->where('Dyelot', base64_decode($idwo));
+    $this->db->update('Dyelots', ['State' => 27]);
+	}
+
 	public function updateState() {
 		$this->db->select('Dyelot, ReDye, Text11, LoadTime');
 		$this->db->from('Dyelots');
@@ -110,10 +116,10 @@ class Home extends CI_Controller
 		// $ds = $this->timbangan_ds->query("SELECT TOP 100 * FROM dbo.領料檔 ORDER BY 開始時間 DESC")->result();
 		// $ax = $this->timbangan_ax->query("SELECT TOP 100 * FROM dbo.領料檔 ORDER BY 開始時間 DESC")->result();
 
-		$dsResult = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 實際重量 != 0 AND 唯一編號 LIKE '%WO08230641KP3588%'")->num_rows();
-		$dsTotal = $this->db->query("SELECT Dyelot, ProductCode FROM Dyelot_recipe WHERE Dyelot = 'WO/0823/0641' AND RecipeUnit = '%'")->result();
+		$dsResult = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 實際重量 != 0 AND 開始時間 >= '2023-09-28 09:50:16.000' AND 唯一編號 LIKE '%WO08230641KP3588%'")->num_rows();
+		$dsTotal = $this->db->query("SELECT Dyelot, ProductCode FROM Dyelot_recipe WHERE Dyelot = 'WO/0823/0641' AND RecipeUnit = '%'")->num_rows();
 		
-		$axResult = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 實際重量 != 0 AND 唯一編號 LIKE '%WO08230641KP3588%'")->num_rows();
+		$axResult = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 實際重量 != 0 AND 開始時間 >= '2023-09-28 09:50:16.000' AND 唯一編號 LIKE '%WO08230641KP3588%'")->num_rows();
 		$axTotal = $this->db->query("SELECT Dyelot, ProductCode FROM Dyelot_recipe WHERE Dyelot = 'WO/0823/0641' AND RecipeUnit = 'g/l'")->num_rows();
 
 		var_dump($dsResult); 
