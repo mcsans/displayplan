@@ -42,10 +42,10 @@ class Home extends CI_Controller
 		foreach($orgatex as $data) {
 			// if ($data->ReDye == 0) {
 				$ds = str_replace('/', '', $data->Dyelot) . 'KP' . $data->Text11;
-				$dsResults = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 實際重量 != 0 AND 唯一編號 LIKE '%$ds%'");
+				$dsResults = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 實際重量 != 0 AND 唯一編號 LIKE '%$ds%' ORDER BY 開始時間 DESC");
 				
 				$ax = str_replace('/', '', $data->Dyelot) . 'KP' . $data->Text11;
-				$axResults = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 實際重量 != 0 AND 唯一編號 LIKE '%$ax%'");
+				$axResults = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 實際重量 != 0 AND 唯一編號 LIKE '%$ax%' ORDER BY 開始時間 DESC");
 				
 				$dsTotal = $this->db->query("SELECT Dyelot FROM Dyelot_recipe WHERE Dyelot = '$data->Dyelot' AND RecipeUnit = '%'")->num_rows();
 				$axTotal = $this->db->query("SELECT Dyelot FROM Dyelot_recipe WHERE Dyelot = '$data->Dyelot' AND RecipeUnit = 'g/l'")->num_rows(); // -1;
@@ -67,7 +67,7 @@ class Home extends CI_Controller
 
 				// actual amount
 				if($dsResults->num_rows() > 0) {
-					foreach(array_reverse($dsResults->result()) as $dsRes) {
+					foreach($dsResults->result() as $dsRes) {
 						$idwokp = $dsRes->唯一編號;
 						$idwo  	= substr($idwokp, 0, 2) . '/' . substr($idwokp, 2, 4) . '/' . substr($idwokp, 6, 4);
 						
@@ -79,7 +79,7 @@ class Home extends CI_Controller
 				}
 
 				if($axResults->num_rows() > 0) {
-					foreach(array_reverse($axResults->result()) as $axRes) {
+					foreach($axResults->result() as $axRes) {
 						$idwokp = $axRes->唯一編號;
 						$idwo  	= substr($idwokp, 0, 2) . '/' . substr($idwokp, 2, 4) . '/' . substr($idwokp, 6, 4);
 	
