@@ -40,7 +40,7 @@ class Home extends CI_Controller
 		$orgatex = $this->db->get()->result();
 
 		foreach($orgatex as $data) {
-			if ($data->ReDye == 0) {
+			// if ($data->ReDye == 0) {
 				$ds = str_replace('/', '', $data->Dyelot) . 'KP' . $data->Text11;
 				$dsResults = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 實際重量 != 0 AND 唯一編號 LIKE '%$ds%'");
 				
@@ -48,17 +48,17 @@ class Home extends CI_Controller
 				$axResults = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 實際重量 != 0 AND 唯一編號 LIKE '%$ax%'");
 				
 				$dsTotal = $this->db->query("SELECT Dyelot FROM Dyelot_recipe WHERE Dyelot = '$data->Dyelot' AND RecipeUnit = '%'")->num_rows();
-				$axTotal = $this->db->query("SELECT Dyelot FROM Dyelot_recipe WHERE Dyelot = '$data->Dyelot' AND RecipeUnit = 'g/l'")->num_rows() -1;
-			} else {
-				$ds = str_replace('/', '', $data->Dyelot) . 'KP' . $data->Text11;
-				$dsResults = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 實際重量 != 0 AND 開始時間 >= '$data->LoadTime' AND 唯一編號 LIKE '%$ds%'");
+				$axTotal = $this->db->query("SELECT Dyelot FROM Dyelot_recipe WHERE Dyelot = '$data->Dyelot' AND RecipeUnit = 'g/l'")->num_rows(); // -1;
+			// } else {
+			// 	$ds = str_replace('/', '', $data->Dyelot) . 'KP' . $data->Text11;
+			// 	$dsResults = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 實際重量 != 0 AND 開始時間 >= '$data->LoadTime' AND 唯一編號 LIKE '%$ds%'");
 				
-				$ax = str_replace('/', '', $data->Dyelot) . 'KP' . $data->Text11;
-				$axResults = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 實際重量 != 0 AND 開始時間 >= '$data->LoadTime' AND 唯一編號 LIKE '%$ax%'");
+			// 	$ax = str_replace('/', '', $data->Dyelot) . 'KP' . $data->Text11;
+			// 	$axResults = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 實際重量 != 0 AND 開始時間 >= '$data->LoadTime' AND 唯一編號 LIKE '%$ax%'");
 				
-				$dsTotal = $this->db->query("SELECT Dyelot FROM Dyelot_recipe WHERE Dyelot = '$data->Dyelot' AND RecipeUnit = '%'")->num_rows();
-				$axTotal = $this->db->query("SELECT Dyelot FROM Dyelot_recipe WHERE Dyelot = '$data->Dyelot' AND RecipeUnit = 'g/l'")->num_rows() -1;
-			}
+			// 	$dsTotal = $this->db->query("SELECT Dyelot FROM Dyelot_recipe WHERE Dyelot = '$data->Dyelot' AND RecipeUnit = '%'")->num_rows();
+			// 	$axTotal = $this->db->query("SELECT Dyelot FROM Dyelot_recipe WHERE Dyelot = '$data->Dyelot' AND RecipeUnit = 'g/l'")->num_rows() -1;
+			// }
 
 			// update state 27
 			if($dsResults->num_rows() >= $dsTotal && $axResults->num_rows() >= $axTotal && $dsResults->num_rows() > 0 && $axResults->num_rows() > 0) {
@@ -67,7 +67,7 @@ class Home extends CI_Controller
 
 				// actual amount
 				if($dsResults->num_rows() > 0) {
-					foreach($dsResults->result() as $dsRes) {
+					foreach(array_reverse($dsResults->result()) as $dsRes) {
 						$idwokp = $dsRes->唯一編號;
 						$idwo  	= substr($idwokp, 0, 2) . '/' . substr($idwokp, 2, 4) . '/' . substr($idwokp, 6, 4);
 						
@@ -79,7 +79,7 @@ class Home extends CI_Controller
 				}
 
 				if($axResults->num_rows() > 0) {
-					foreach($axResults->result() as $axRes) {
+					foreach(array_reverse($axResults->result()) as $axRes) {
 						$idwokp = $axRes->唯一編號;
 						$idwo  	= substr($idwokp, 0, 2) . '/' . substr($idwokp, 2, 4) . '/' . substr($idwokp, 6, 4);
 	
