@@ -73,6 +73,7 @@ class Home extends CI_Controller
 						
 						$this->db->where('Dyelot', $idwo);
 						$this->db->where('ProductCode', $dsRes->藥劑編號);
+						$this->db->where('ActualAmount', 0);
 						$this->db->update('Dyelot_Recipe', ['ActualAmount' => $dsRes->實際重量]);
 					}
 				}
@@ -84,6 +85,7 @@ class Home extends CI_Controller
 	
 						$this->db->where('Dyelot', $idwo);
 						$this->db->where('ProductCode', $axRes->藥劑編號);
+						$this->db->where('ActualAmount', 0);
 						$this->db->update('Dyelot_Recipe', ['ActualAmount' => $axRes->實際重量]);
 					}
 				}
