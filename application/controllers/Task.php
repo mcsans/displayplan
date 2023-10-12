@@ -96,6 +96,7 @@ class Task extends CI_Controller {
 		$this->server->query('CALL Monitoring()');
 		$this->server->query('FLUSH HOSTS');
 
+		$this->server->close();
 		$this->updateLastruntimeCount('callProcedure');
 	}
 

@@ -139,7 +139,7 @@ function readDataTask() {
 function endPlan(idwo, kp) {
 	var result = confirm(`Selesaikan timbangan KP ${kp} ?`);
 	if (result) {
-		$.get(`${baseurl}home/endPlan/${btoa(idwo)}`, {}, function() {
+		$.get(`${baseurl}home/endPlan/${btoa(idwo)}/${kp}`, {}, function() {
 			readData(1);
 		});
 	}
