@@ -148,6 +148,17 @@ class Home extends CI_Controller
 		$this->server->query("UPDATE tbltask SET lastruntime='$lastruntime', count=$count WHERE name='$table'");
 	}
 
+	public function TestActualWanfeng() {
+		$id_ch = 'MC/0713/0008';
+		$tgl_mulai = '2023-10-03';
+		$tgl_akhir = '2023-10-03 23:59:59';
+
+		$query = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 藥劑編號 = '$id_ch' AND 實際重量 != 0 AND 開始時間 >= '$tgl_mulai' AND 開始時間 <= '$tgl_akhir'")->result();
+
+		var_dump($query);
+		die();
+	}
+
 	public function Test() {
 		// $today = date('Y-m-d H:i:s');
 		// $kemarin = date('Y-m-d 00:00:00', strtotime('0 days ago'));
