@@ -29,8 +29,8 @@ class Home extends CI_Controller
 
 	public function endPlan($idwo, $kp)
 	{
-		// $this->db->where('Dyelot', base64_decode($idwo));
-		// $this->db->update('Dyelots', ['State' => 27]);
+		$this->db->where('Dyelot', base64_decode($idwo));
+		$this->db->update('Dyelots', ['State' => 27]);
 
 		$ds = str_replace('/', '', base64_decode($idwo)) . 'KP' . $kp;
 		$dsResults = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 實際重量 != 0 AND 唯一編號 LIKE '%$ds%' ORDER BY 開始時間 DESC");

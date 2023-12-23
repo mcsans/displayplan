@@ -22,7 +22,7 @@ class m_home extends CI_Model
 
         // $this->db->where('QueueTime >', '2023-08-28 00:00:00');
         $this->db->where('Machine !=', 'TEMP');
-        $this->db->where('State ', 25);
+        $this->db->where_in('State ', [20, 25]);
 
         if ($perMesin != 'ALL') {
             $this->db->where('Machine', $perMesin);
