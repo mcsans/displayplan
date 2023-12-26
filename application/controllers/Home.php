@@ -44,7 +44,7 @@ class Home extends CI_Controller
 				$idwo  	= substr($idwokp, 0, 2) . '/' . substr($idwokp, 2, 4) . '/' . substr($idwokp, 6, 4);
 
 				$this->db->where('Dyelot', $idwo);
-				$this->db->where('ProductCode', $dsRes->藥劑編號);
+				$this->db->where('ProductShortName', $dsRes->藥劑編號);
 				$this->db->group_start();
 				$this->db->where('ActualAmount', 0);
 				$this->db->or_where('ActualAmount', null);
@@ -59,7 +59,7 @@ class Home extends CI_Controller
 				$idwo  	= substr($idwokp, 0, 2) . '/' . substr($idwokp, 2, 4) . '/' . substr($idwokp, 6, 4);
 
 				$this->db->where('Dyelot', $idwo);
-				$this->db->where('ProductCode', $axRes->藥劑編號);
+				$this->db->where('ProductShortName', $axRes->藥劑編號);
 				$this->db->group_start();
 				$this->db->where('ActualAmount', 0);
 				$this->db->or_where('ActualAmount', null);
@@ -107,12 +107,13 @@ class Home extends CI_Controller
 
 				// actual amount
 				if ($dsResults->num_rows() > 0) {
+
 					foreach ($dsResults->result() as $dsRes) {
 						$idwokp = $dsRes->唯一編號;
 						$idwo  	= substr($idwokp, 0, 2) . '/' . substr($idwokp, 2, 4) . '/' . substr($idwokp, 6, 4);
 
 						$this->db->where('Dyelot', $idwo);
-						$this->db->where('ProductCode', $dsRes->藥劑編號);
+						$this->db->where('ProductShortName', $dsRes->藥劑編號);
 						$this->db->where('ActualAmount', 0);
 						$this->db->update('Dyelot_Recipe', ['ActualAmount' => $dsRes->實際重量]);
 					}
@@ -124,7 +125,7 @@ class Home extends CI_Controller
 						$idwo  	= substr($idwokp, 0, 2) . '/' . substr($idwokp, 2, 4) . '/' . substr($idwokp, 6, 4);
 
 						$this->db->where('Dyelot', $idwo);
-						$this->db->where('ProductCode', $axRes->藥劑編號);
+						$this->db->where('ProductShortName', $axRes->藥劑編號);
 						$this->db->where('ActualAmount', 0);
 						$this->db->update('Dyelot_Recipe', ['ActualAmount' => $axRes->實際重量]);
 					}
@@ -133,12 +134,12 @@ class Home extends CI_Controller
 				// update centang hijau
 				if ($dsResults->num_rows() >= $dsTotal && $dsResults->num_rows() > 0) {
 					$this->db->where('Dyelot', $data->Dyelot);
-					$this->db->update('Dyelots', ['Text20' => 1]);
+					$this->db->update('Dyelots', ['Text19' => 1]);
 				}
 
 				if ($axResults->num_rows() >= $axTotal && $axResults->num_rows() > 0) {
 					$this->db->where('Dyelot', $data->Dyelot);
-					$this->db->update('Dyelots', ['Text20' => 2]);
+					$this->db->update('Dyelots', ['Text20' => 1]);
 				}
 			}
 		}
@@ -173,10 +174,10 @@ class Home extends CI_Controller
 		// $ax = $this->timbangan_ax->query("SELECT TOP 100 * FROM dbo.領料檔 ORDER BY 開始時間 DESC")->result();
 
 		$dsResult = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 實際重量 != 0 AND 唯一編號 LIKE '%WO11230580KP5209%'")->result_array();
-		$dsTotal = $this->db->query("SELECT Dyelot, ProductCode FROM Dyelot_recipe WHERE Dyelot = 'WO/1123/0580' AND RecipeUnit = '%'")->result_array();
+		$dsTotal = $this->db->query("SELECT Dyelot, ProductShortName FROM Dyelot_recipe WHERE Dyelot = 'WO/1123/0580' AND RecipeUnit = '%'")->result_array();
 
 		$axResult = $this->timbangan_ax->query("SELECT * FROM dbo.領料檔 WHERE 實際重量 != 0 AND 唯一編號 LIKE '%WO11230580KP5209%'")->result_array();
-		$axTotal = $this->db->query("SELECT Dyelot, ProductCode FROM Dyelot_recipe WHERE Dyelot = 'WO/1123/0580' AND RecipeUnit = 'g/l'")->result_array();
+		$axTotal = $this->db->query("SELECT Dyelot, ProductShortName FROM Dyelot_recipe WHERE Dyelot = 'WO/1123/0580' AND RecipeUnit = 'g/l'")->result_array();
 
 		var_dump($dsResult);
 		var_dump($dsTotal);
