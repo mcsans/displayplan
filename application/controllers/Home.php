@@ -130,17 +130,16 @@ class Home extends CI_Controller
 						$this->db->update('Dyelot_Recipe', ['ActualAmount' => $axRes->實際重量]);
 					}
 				}
-			} else {
-				// update centang hijau
-				if ($dsResults->num_rows() >= $dsTotal && $dsResults->num_rows() > 0) {
-					$this->db->where('Dyelot', $data->Dyelot);
-					$this->db->update('Dyelots', ['Text19' => 1]);
-				}
+			}
+			// update centang hijau
+			if ($dsResults->num_rows() >= $dsTotal && $dsResults->num_rows() > 0) {
+				$this->db->where('Dyelot', $data->Dyelot);
+				$this->db->update('Dyelots', ['Text19' => 1]);
+			}
 
-				if ($axResults->num_rows() >= $axTotal && $axResults->num_rows() > 0) {
-					$this->db->where('Dyelot', $data->Dyelot);
-					$this->db->update('Dyelots', ['Text20' => 1]);
-				}
+			if ($axResults->num_rows() >= $axTotal && $axResults->num_rows() > 0) {
+				$this->db->where('Dyelot', $data->Dyelot);
+				$this->db->update('Dyelots', ['Text20' => 1]);
 			}
 		}
 
