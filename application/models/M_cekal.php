@@ -1,14 +1,12 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class m_home extends CI_Model
+class m_cekal extends CI_Model
 {
     public function __construct()
     {
         parent::__construct();
         $this->load->database();
-        $this->timbangan_ds = $this->load->database('timbangan_ds', TRUE);
-        $this->timbangan_ax = $this->load->database('timbangan_ax', TRUE);
     }
 
     public function pagination($keyword)
@@ -17,16 +15,16 @@ class m_home extends CI_Model
         $perMesin = $this->input->get('perMesin');
 
         // QUERY
-        $this->db->select('LoadTime as QueueTime, Machine, Dyelot, Text11, Article, ColourDescript, ColourNo, Weight, State,Text19, Text20');
-        $this->db->from('Dyelots');
+        $this->db->select('m.*, (SELECT COUNT(*) FROM dyelot_recipe WHERE ActualAmount = 0 AND dyelot = m.dyelot) as zeroActualAmount', false);
+        $this->db->from('dyelots as m');
+        $this->db->where('(SELECT COUNT(*) FROM dyelot_recipe WHERE ActualAmount = 0 AND dyelot = m.dyelot) > 0');
+        $this->db->where('year(m.queuetime) >= 2024');
+        $this->db->where('state > 25');
+        
 
-        // $this->db->where('QueueTime >', '2023-08-28 00:00:00');
-        $this->db->where('Machine !=', 'TEMP');
-        $this->db->where_in('State ', [20, 25]);
-
-        if ($perMesin != 'ALL') {
-            $this->db->where('Machine', $perMesin);
-        }
+        // if ($perMesin != 'ALL') {
+        //     $this->db->where('Machine', $perMesin);
+        // }
         if ($keyword != "") {
             $this->db->group_start();
             $this->db->like('dyelots.Machine', base64_decode($keyword));
@@ -39,8 +37,8 @@ class m_home extends CI_Model
             $this->db->or_like('dyelots.State', base64_decode($keyword));
             $this->db->group_end();
         }
-        $this->db->order_by('dyelots.Machine', 'asc');
-        $this->db->order_by('dyelots.QueueTime', 'asc');
+        $this->db->order_by('m.Machine', 'asc');
+        $this->db->order_by('m.QueueTime', 'asc');
         // END QUERY
 
         $query      = clone $this->db;

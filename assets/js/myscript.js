@@ -45,6 +45,18 @@ $(document).ready(function() {
       readData(1);
     }, 10000);
   }
+
+  if (segment.toLowerCase() == 'cekal/') {
+    readData(1);
+    
+    // setInterval(function() {
+    //   updateState();
+    // }, 60000);
+
+    setInterval(function() {
+      readData(1);
+    }, 10000);
+  }
 });
 
 function updateState() {

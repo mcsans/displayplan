@@ -121,7 +121,7 @@ class Home extends CI_Controller
 
 				if ($axResults->num_rows() > 0) {
 					foreach ($axResults->result() as $axRes) {
-						$idwokp = $axRes->唯一編號;
+						$hdwokp = $axRes->唯一編號;
 						$idwo  	= substr($idwokp, 0, 2) . '/' . substr($idwokp, 2, 4) . '/' . substr($idwokp, 6, 4);
 
 						$this->db->where('Dyelot', $idwo);

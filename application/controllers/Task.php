@@ -54,6 +54,7 @@ class Task extends CI_Controller {
 		$sql = "INSERT IGNORE INTO tbldisplayproses (id, id_wo, id_wo_ori, proses, id_grey, nama_unit, nama_proses, user, lastmodified, start_time, end_time, j_kain) VALUES $valuesClause";
 
 		$this->server->query($sql);
+		
 
 		// TABLE DISPLAY PROSES HISTORY===============
 		$displayProsesHistory = $this->wanfeng->query('SELECT * FROM tbldisplayproseshistory WHERE start_time BETWEEN CURDATE() - INTERVAL 1 DAY AND NOW()')->result_array();
