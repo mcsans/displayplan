@@ -12,7 +12,7 @@ class Home extends CI_Controller
 		$this->timbangan_ax = $this->load->database('timbangan_ax', TRUE);
 		$this->server       = $this->load->database('server', TRUE);
 		$this->wanfeng      = $this->load->database('wanfeng', TRUE);
-
+		$this->asiantex      = $this->load->database('asiantex', TRUE);
 		$this->load->model('m_home');
 	}
 
@@ -50,6 +50,14 @@ class Home extends CI_Controller
 				$this->db->or_where('ActualAmount', null);
 				$this->db->group_end();
 				$this->db->update('Dyelot_Recipe', ['ActualAmount' => $dsRes->實際重量]);
+
+				$this->asiantex->where('id_wo', $idwo);
+				$this->asiantex->where('id_ch', $dsRes->藥劑編號);
+				$this->asiantex->group_start();
+				$this->asiantex->where('ActualAmount', 0);
+				$this->asiantex->or_where('ActualAmount', null);
+				$this->asiantex->group_end();
+				$this->asiantex->update('tblwochem', ['ActualAmount' => $dsRes->實際重量]);
 			}
 		}
 
@@ -65,6 +73,14 @@ class Home extends CI_Controller
 				$this->db->or_where('ActualAmount', null);
 				$this->db->group_end();
 				$this->db->update('Dyelot_Recipe', ['ActualAmount' => $axRes->實際重量]);
+
+				$this->asiantex->where('id_wo', $idwo);
+				$this->asiantex->where('id_ch', $axRes->藥劑編號);
+				$this->asiantex->group_start();
+				$this->asiantex->where('ActualAmount', 0);
+				$this->asiantex->or_where('ActualAmount', null);
+				$this->asiantex->group_end();
+				$this->asiantex->update('tblwochem', ['ActualAmount' => $axRes->實際重量]);
 			}
 		}
 	}

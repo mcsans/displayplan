@@ -17,7 +17,7 @@
 <tr align="center">
 	<td width="1%"><?= $i ?></td>
 	<td align="left">Daftar Cekal KP yang actual amount nya 0 </td>
-	<td>Running</td>
+	<td>Running</td> 
 	<td></td>
 	<td> <?php
 			// Add your SQL query here
