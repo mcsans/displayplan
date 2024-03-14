@@ -132,6 +132,13 @@ class Home extends CI_Controller
 						$this->db->where('ProductShortName', $dsRes->藥劑編號);
 						$this->db->where('ActualAmount', 0);
 						$this->db->update('Dyelot_Recipe', ['ActualAmount' => $dsRes->實際重量]);
+						$this->asiantex->where('id_wo', $idwo);
+						$this->asiantex->where('id_ch',  $dsRes->藥劑編號);
+						$this->asiantex->group_start();
+						// $this->asiantex->where('ActualAmount', 0);
+						$this->asiantex->where('ActualAmount', null);
+						$this->asiantex->group_end();
+						$this->asiantex->update('tblwochem', ['ActualAmount'  => $dsRes->實際重量]);
 					}
 				}
 
@@ -144,6 +151,14 @@ class Home extends CI_Controller
 						$this->db->where('ProductShortName', $axRes->藥劑編號);
 						$this->db->where('ActualAmount', 0);
 						$this->db->update('Dyelot_Recipe', ['ActualAmount' => $axRes->實際重量]);
+						$this->asiantex->where('id_wo', $idwo);
+						$this->asiantex->where('id_ch', $axRes->藥劑編號);
+						$this->asiantex->group_start();
+						// $this->asiantex->where('ActualAmount', 0);
+						$this->asiantex->where('ActualAmount', null);
+						$this->asiantex->group_end();
+						$this->asiantex->update('tblwochem', ['ActualAmount' => $axRes->實際重量]);
+					}
 					}
 				}
 			}
