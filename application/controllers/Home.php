@@ -159,7 +159,6 @@ class Home extends CI_Controller
 						$this->asiantex->group_end();
 						$this->asiantex->update('tblwochem', ['ActualAmount' => $axRes->實際重量]);
 					}
-					}
 				}
 			}
 			// update centang hijau
