@@ -86,9 +86,9 @@ class Task extends CI_Controller
 
 		$valuesClause = implode(', ', $dataToInsert);
 
-		// $sql = "INSERT IGNORE INTO tbldisplayproseshistory (id_produksi, id_wo, id_wo_ori, id_dpr, id_kode, kode, proses, waktu, operator, lastmodified, start_time, end_time) VALUES $valuesClause";
+		$sql = "INSERT IGNORE INTO tbldisplayproseshistory (id_produksi, id_wo, id_wo_ori, id_dpr, id_kode, kode, proses, waktu, operator, lastmodified, start_time, end_time) VALUES $valuesClause";
 
-		// $this->server->query($sql);
+		$this->server->query($sql);
 
 		$this->updateLastruntimeCount('transData');
 	}
