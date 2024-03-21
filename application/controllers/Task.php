@@ -60,7 +60,7 @@ class Task extends CI_Controller
 
 
 		// TABLE DISPLAY PROSES HISTORY===============
-		$displayProsesHistory = $this->wanfeng->query('SELECT * FROM tbldisplayproseshistory WHERE start_time BETWEEN CURDATE() - INTERVAL 1 DAY AND NOW()')->result_array();
+		$displayProsesHistory = $this->wanfeng->query('SELECT * FROM tbldisplayproseshistory WHERE lastmodified BETWEEN CURDATE() - INTERVAL 1 DAY AND NOW()')->result_array();
 		// $displayProsesHistory = $this->wanfeng->query("SELECT * FROM tbldisplayproseshistory WHERE date(start_time)  = '2024-03-07' ")->result_array();
 
 		$dataToInsert = [];
