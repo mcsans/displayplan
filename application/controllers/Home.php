@@ -138,13 +138,20 @@ class Home extends CI_Controller
 						// $this->asiantex->where('ActualAmount', 0);
 						$this->asiantex->where('ActualAmount', null);
 						$this->asiantex->group_end();
-						$this->asiantex->update('tblwochem', ['ActualAmount'  => $dsRes->實際重量]);
+						$this->asiantex->update('tblwochem', ['ActualAmount'  => $dsRes->實際重量, 'tgl_timbang'  => date('Y-m-d h:i:s')]);
+
+						$this->asiantex->where('id_wo', $idwo);
+						$this->asiantex->update('tbldisplayproses',  [
+							'proses'  => 'T',
+							'start_time' => date('Y-m-d H:i:s'),
+							'end_time' => date('Y-m-d H:i:s'),
+						]);
 					}
 				}
 
 				if ($axResults->num_rows() > 0) {
 					foreach ($axResults->result() as $axRes) {
-						$hdwokp = $axRes->唯一編號;
+						$idwokp = $axRes->唯一編號;
 						$idwo  	= substr($idwokp, 0, 2) . '/' . substr($idwokp, 2, 4) . '/' . substr($idwokp, 6, 4);
 
 						$this->db->where('Dyelot', $idwo);
@@ -158,6 +165,13 @@ class Home extends CI_Controller
 						$this->asiantex->where('ActualAmount', null);
 						$this->asiantex->group_end();
 						$this->asiantex->update('tblwochem', ['ActualAmount' => $axRes->實際重量]);
+						$this->asiantex->where('id_wo', $idwo);
+						
+						$this->asiantex->update('tbldisplayproses',  [
+							'proses'  => 'T',
+							'start_time' => date('Y-m-d H:i:s'),
+							'end_time' => date('Y-m-d H:i:s'),
+						]);
 					}
 				}
 			}
