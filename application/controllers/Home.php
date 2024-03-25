@@ -29,6 +29,8 @@ class Home extends CI_Controller
 
 	public function endPlan($idwo, $kp)
 	{
+		$now = date('Y-m-d H:i:s');
+
 		$this->db->where('Dyelot', base64_decode($idwo));
 		$this->db->update('Dyelots', ['State' => 27]);
 
@@ -62,9 +64,9 @@ class Home extends CI_Controller
 				$this->asiantex->update('tbldisplayproses',  [
 					'proses'  => 'T',
 					'nama_proses'  => 'TIMBANG_RESEP',
-					'start_time' => date('Y-m-d H:i:s'),
-					'end_time' => date('Y-m-d H:i:s'),
-					'lastmodified' => date('Y-m-d H:i:s'),
+					'start_time' => $now,
+					'end_time' => $now,
+					'lastmodified' => $now,
 
 				]);
 			}
@@ -94,9 +96,9 @@ class Home extends CI_Controller
 				$this->asiantex->update('tbldisplayproses',  [
 					'proses'  => 'T',
 					'nama_proses'  => 'TIMBANG_RESEP',
-					'start_time' => date('Y-m-d H:i:s'),
-					'end_time' => date('Y-m-d H:i:s'),
-					'lastmodified' => date('Y-m-d H:i:s'),
+					'start_time' => $now,
+					'end_time' => $now,
+					'lastmodified' => $now,
 
 				]);
 			}
@@ -109,11 +111,12 @@ class Home extends CI_Controller
 		$this->db->from('Dyelots');
 		$this->db->where('State', 25);
 		$orgatex = $this->db->get()->result();
+		$now = date('Y-m-d H:i:s');
+
 
 		foreach ($orgatex as $data) {
 
 			//Ini yang otomatis ya?
-
 			// if ($data->ReDye == 0) {
 			$ds = str_replace('/', '', $data->Dyelot) . 'KP' . $data->Text11;
 			$dsResults = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 實際重量 != 0 AND 唯一編號 LIKE '%$ds%' ORDER BY 開始時間 DESC");
@@ -156,15 +159,15 @@ class Home extends CI_Controller
 						// $this->asiantex->where('ActualAmount', 0);
 						$this->asiantex->where('ActualAmount', null);
 						$this->asiantex->group_end();
-						$this->asiantex->update('tblwochem', ['ActualAmount'  => $dsRes->實際重量, 'tgl_timbang'  => date('Y-m-d h:i:s')]);
+						$this->asiantex->update('tblwochem', ['ActualAmount'  => $dsRes->實際重量]);
 
 						$this->asiantex->where('id_wo', $idwo);
 						$this->asiantex->update('tbldisplayproses',  [
 							'proses'  => 'T',
 							'nama_proses'  => 'TIMBANG_RESEP',
-							'start_time' => date('Y-m-d H:i:s'),
-							'end_time' => date('Y-m-d H:i:s'),
-							'lastmodified' => date('Y-m-d H:i:s'),
+							'start_time' => $now,
+							'end_time' => $now,
+							'lastmodified' => $now,
 
 						]);
 					}
@@ -191,9 +194,9 @@ class Home extends CI_Controller
 						$this->asiantex->update('tbldisplayproses',  [
 							'proses'  => 'T',
 							'nama_proses'  => 'TIMBANG_RESEP',
-							'start_time' => date('Y-m-d H:i:s'),
-							'end_time' => date('Y-m-d H:i:s'),
-							'lastmodified' => date('Y-m-d H:i:s'),
+							'start_time' => $now,
+							'end_time' => $now,
+							'lastmodified' => $now,
 
 						]);
 					}
