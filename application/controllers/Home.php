@@ -58,6 +58,13 @@ class Home extends CI_Controller
 				$this->asiantex->or_where('ActualAmount', null);
 				$this->asiantex->group_end();
 				$this->asiantex->update('tblwochem', ['ActualAmount' => $dsRes->實際重量]);
+				$this->asiantex->where('id_wo', $idwo);
+				$this->asiantex->update('tbldisplayproses',  [
+					'proses'  => 'T',
+					'nama_proses'  => 'TIMBANG_RESEP',
+					'start_time' => date('Y-m-d H:i:s'),
+					'end_time' => date('Y-m-d H:i:s'),
+				]);
 			}
 		}
 
@@ -81,6 +88,13 @@ class Home extends CI_Controller
 				$this->asiantex->or_where('ActualAmount', null);
 				$this->asiantex->group_end();
 				$this->asiantex->update('tblwochem', ['ActualAmount' => $axRes->實際重量]);
+				$this->asiantex->where('id_wo', $idwo);
+				$this->asiantex->update('tbldisplayproses',  [
+					'proses'  => 'T',
+					'nama_proses'  => 'TIMBANG_RESEP',
+					'start_time' => date('Y-m-d H:i:s'),
+					'end_time' => date('Y-m-d H:i:s'),
+				]);
 			}
 		}
 	}
@@ -143,6 +157,7 @@ class Home extends CI_Controller
 						$this->asiantex->where('id_wo', $idwo);
 						$this->asiantex->update('tbldisplayproses',  [
 							'proses'  => 'T',
+							'nama_proses'  => 'TIMBANG_RESEP',
 							'start_time' => date('Y-m-d H:i:s'),
 							'end_time' => date('Y-m-d H:i:s'),
 						]);
@@ -166,9 +181,10 @@ class Home extends CI_Controller
 						$this->asiantex->group_end();
 						$this->asiantex->update('tblwochem', ['ActualAmount' => $axRes->實際重量]);
 						$this->asiantex->where('id_wo', $idwo);
-						
+
 						$this->asiantex->update('tbldisplayproses',  [
 							'proses'  => 'T',
+							'nama_proses'  => 'TIMBANG_RESEP',
 							'start_time' => date('Y-m-d H:i:s'),
 							'end_time' => date('Y-m-d H:i:s'),
 						]);
