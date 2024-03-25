@@ -64,6 +64,8 @@ class Home extends CI_Controller
 					'nama_proses'  => 'TIMBANG_RESEP',
 					'start_time' => date('Y-m-d H:i:s'),
 					'end_time' => date('Y-m-d H:i:s'),
+					'lastmodified' => date('Y-m-d H:i:s'),
+
 				]);
 			}
 		}
@@ -94,6 +96,8 @@ class Home extends CI_Controller
 					'nama_proses'  => 'TIMBANG_RESEP',
 					'start_time' => date('Y-m-d H:i:s'),
 					'end_time' => date('Y-m-d H:i:s'),
+					'lastmodified' => date('Y-m-d H:i:s'),
+
 				]);
 			}
 		}
@@ -160,6 +164,8 @@ class Home extends CI_Controller
 							'nama_proses'  => 'TIMBANG_RESEP',
 							'start_time' => date('Y-m-d H:i:s'),
 							'end_time' => date('Y-m-d H:i:s'),
+							'lastmodified' => date('Y-m-d H:i:s'),
+
 						]);
 					}
 				}
@@ -187,6 +193,8 @@ class Home extends CI_Controller
 							'nama_proses'  => 'TIMBANG_RESEP',
 							'start_time' => date('Y-m-d H:i:s'),
 							'end_time' => date('Y-m-d H:i:s'),
+							'lastmodified' => date('Y-m-d H:i:s'),
+
 						]);
 					}
 				}
