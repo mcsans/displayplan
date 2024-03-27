@@ -29,10 +29,11 @@ class Home extends CI_Controller
 
 	public function endPlan($idwo, $kp)
 	{
-		$now = date('Y-m-d H:i:s');
 
-		$this->db->where('Dyelot', base64_decode($idwo));
-		$this->db->update('Dyelots', ['State' => 27]);
+		$now = date('Y-m-d H:i:s');
+		$id_wo2 = base64_decode($idwo);
+		// $this->db->where('Dyelot', base64_decode($idwo));
+		// $this->db->update('Dyelots', ['State' => 27]);
 
 		$ds = str_replace('/', '', base64_decode($idwo)) . 'KP' . $kp;
 		$dsResults = $this->timbangan_ds->query("SELECT * FROM dbo.領料檔 WHERE 實際重量 != 0 AND 唯一編號 LIKE '%$ds%' ORDER BY 開始時間 DESC");
@@ -60,15 +61,6 @@ class Home extends CI_Controller
 				$this->asiantex->or_where('ActualAmount', null);
 				$this->asiantex->group_end();
 				$this->asiantex->update('tblwochem', ['ActualAmount' => $dsRes->實際重量]);
-				$this->asiantex->where('id_wo', $idwo);
-				$this->asiantex->update('tbldisplayproses',  [
-					'proses'  => 'T',
-					'nama_proses'  => 'TIMBANG_RESEP',
-					'start_time' => $now,
-					'end_time' => $now,
-					'lastmodified' => $now,
-
-				]);
 			}
 		}
 
@@ -92,16 +84,31 @@ class Home extends CI_Controller
 				$this->asiantex->or_where('ActualAmount', null);
 				$this->asiantex->group_end();
 				$this->asiantex->update('tblwochem', ['ActualAmount' => $axRes->實際重量]);
-				$this->asiantex->where('id_wo', $idwo);
-				$this->asiantex->update('tbldisplayproses',  [
-					'proses'  => 'T',
-					'nama_proses'  => 'TIMBANG_RESEP',
+			}
+		}
+		try {
+			$existingRows = $this->asiantex->get_where('tbldisplayproseshistory', ['proses' => 'T', 'id_wo' => $idwo]);
+
+			if ($existingRows->num_rows() == 0) {
+				// No existing row found, insert the new row
+				$insertData = [
+					'id_wo' => $id_wo2,
+					'kode' => 'T',
+					'proses' => 'TIMBANG_RESEP',
+					'operator' => 'ORGATEX',
+					'waktu' => date('Y-m-d'),
 					'start_time' => $now,
 					'end_time' => $now,
 					'lastmodified' => $now,
-
-				]);
+				];
+				$this->asiantex->insert('tbldisplayproseshistory', $insertData);
+				echo "Data inserted successfully!";
+			} else {
+				// Existing row found, do not insert
+				echo "Data already exists, skipping insertion.";
 			}
+		} catch (Exception $e) {
+			echo "Error: " . $e->getMessage();
 		}
 	}
 
@@ -161,15 +168,24 @@ class Home extends CI_Controller
 						$this->asiantex->group_end();
 						$this->asiantex->update('tblwochem', ['ActualAmount'  => $dsRes->實際重量]);
 
-						$this->asiantex->where('id_wo', $idwo);
-						$this->asiantex->update('tbldisplayproses',  [
-							'proses'  => 'T',
-							'nama_proses'  => 'TIMBANG_RESEP',
-							'start_time' => $now,
-							'end_time' => $now,
-							'lastmodified' => $now,
+						// $this->asiantex->where('id_wo', $idwo);
+						// $existingRows = $this->asiantex->get_where('tbldisplayproseshistory', ['kode' => 'T', 'id_wo' => $idwo]);
 
-						]);
+						// if ($existingRows->num_rows() == 0) {
+						// 	// No existing row found, insert the new row
+						// 	$this->asiantex->insert('tbldisplayproseshistory',  [
+						// 		'id_wo' =>  $idwo,
+
+						// 		'kode' => 'T',
+						// 		'proses' => 'TIMBANG_RESEP',
+						// 		'start_time' => $now,
+						// 		'end_time' => $now,
+						// 		'lastmodified' => $now,
+						// 	]);
+						// } else {
+						// 	// Existing row found, do not insert
+						// 	// You can add error handling or logging here if needed
+						// }
 					}
 				}
 
@@ -191,14 +207,23 @@ class Home extends CI_Controller
 						$this->asiantex->update('tblwochem', ['ActualAmount' => $axRes->實際重量]);
 						$this->asiantex->where('id_wo', $idwo);
 
-						$this->asiantex->update('tbldisplayproses',  [
-							'proses'  => 'T',
-							'nama_proses'  => 'TIMBANG_RESEP',
-							'start_time' => $now,
-							'end_time' => $now,
-							'lastmodified' => $now,
+						// $existingRows = $this->asiantex->get_where('tbldisplayproseshistory', ['kode' => 'T', 'id_wo' => $idwo]);
 
-						]);
+						// if ($existingRows->num_rows() == 0) {
+						// 	// No existing row found, insert the new row
+						// 	$this->asiantex->insert('tbldisplayproseshistory',  [
+						// 		'id_wo' =>  $idwo,
+
+						// 		'kode' => 'T',
+						// 		'proses' => 'TIMBANG_RESEP',
+						// 		'start_time' => $now,
+						// 		'end_time' => $now,
+						// 		'lastmodified' => $now,
+						// 	]);
+						// } else {
+						// 	// Existing row found, do not insert
+						// 	// You can add error handling or logging here if needed
+						// }
 					}
 				}
 			}
